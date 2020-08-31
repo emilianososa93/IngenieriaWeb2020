@@ -47,7 +47,7 @@ def registrar(request):
 					email_subject   = 'Confirmación de cuenta Comunidad Educativa!'
 					email_body      = "Hola %s, Gracias por registrarte. Para activar tu cuenta haga clíck en este link: https://comunidadeducativa.herokuapp.com/bievenido/%s" % (nombre, token)
                                         
-					send_mail(email_subject,email_body, 'comunidadeducativaseia@gmail.com',[email] )
+					send_mail(email_subject,email_body, 'comunidadeducativaseia@gmail.com',[email])
 
 					user.save()
 					perfil.save()

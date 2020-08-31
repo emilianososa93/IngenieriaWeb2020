@@ -126,11 +126,14 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/portada/'
 LOGOUT_REDIRECT_URL = '/portada/'
 
+
+EMAIL_USE_TLS = True
+
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = 'comunidadeducativaseia@gmail.com'
 EMAIL_HOST_PASSWORD = 'SEIA2020'
 EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+
 
 
 MEDIA_URL = '/media/'
