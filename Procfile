@@ -1,1 +1,1 @@
-web: gunicorn Comunidad_Educativa.wsgi --log-file -
+web: cd Comunidad_Educativa && gunicorn Comunidad_Educativa.wsgi --log-file -
