@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% load static %}
+{%load staticfiles%}
+{% block navbar%}
+{% endblock %}
+{% block content %}
+{% load staticfiles %}
+<head>
+    <title>Portada</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/portada.css' %}">
+</head>
+<body>
+	<div>
+
+<h1>Hola {{request.user.first_name}}!! Conoce nuestra comunidad!</h1>
+{% csrf_token %}
+	</div>
+
+	
+</body>
+
+{% endblock %}﻿
