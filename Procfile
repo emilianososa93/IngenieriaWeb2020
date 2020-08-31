@@ -1,0 +1,1 @@
+web: gunicorn Comunidad_Educativa.wsgi --log-file -
