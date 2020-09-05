@@ -6,9 +6,9 @@ from .models import *
 
 
 class RegisterForm(forms.Form):
-    usuario = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'validate form-control','placeholder': ' Usuario'}))
+    usuario = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'validate form-control','placeholder': ' Nombre de Usuario'}))
     nombre = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class' : 'validate form-control','placeholder': ' Nombre'}))
     apellido = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'validate form-control','placeholder': ' Apellido'}))
     email = forms.EmailField(max_length=50 , widget=forms.TextInput(attrs={'class' : 'validate form-control','placeholder': ' Correo'}))
     contraseña = forms.CharField(widget=forms.PasswordInput(attrs={'class' : 'validate form-control','placeholder ': ' Contraseña'}))
-    confirmarcontraseña =forms.CharField(widget=forms.PasswordInput(attrs={'class' : 'validate form-control','placeholder': ' Confirme contraseña'}))
+    confirmarcontraseña =forms.CharField(widget=forms.PasswordInput(attrs={'class' : 'validate form-control','placeholder': ' Confirmar contraseña'}))

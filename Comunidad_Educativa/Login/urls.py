@@ -18,5 +18,6 @@ urlpatterns = [
     url('validacionmail/', views.validacionmail),
     url('registrar/', views.registrar, name = 'registrar'),
     url('nosotros/', views.nosotros, name = 'nosotros'),
+    url('editarusuario/', views.editarusuario, name = 'editarusuario'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

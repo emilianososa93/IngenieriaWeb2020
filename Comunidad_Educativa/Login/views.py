@@ -93,3 +93,40 @@ def confirmar(request, activacion_token):
 @login_required
 def nosotros(request):
     return render(request, 'nosotros.html')
+
+
+
+def editarusuario(request):
+	if request.method == 'POST':
+		usuario = request.POST['nombreUsuario']
+		nombre = request.POST['nombre']
+		apellido = request.POST['apellido']
+		email  = request.POST['email']
+		localidad = request.POST['localidad']
+		telefonoNumero = request.POST['telefonoNumero']
+		direccion = request.POST['direccion']
+		provincia = request.POST['provincia']
+
+		user = get_object_or_404(User, id = request.user.id)
+		perfil = Perfil(
+				usuario = user,
+				ciudad = localidad,
+				telefonoNumero = telefonoNumero,
+				direccion = direccion,
+				provincia = provincia)
+
+		user.username = usuario
+		user.first_name = nombre
+		user.last_name = apellido
+		user.email = email
+		user.username = usuario
+			
+		user.save()
+		perfil.save()
+	usuario  = []
+	_usuario = request.user.id
+	perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
+	for _perfil in perfilesUsuario:
+		usuario.append(Perfil.objects.all().last())
+
+	return render(request, "editarusuario.html", {'usuario': usuario})
