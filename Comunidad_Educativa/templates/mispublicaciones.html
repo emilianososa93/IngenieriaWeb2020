@@ -1,15 +1,16 @@
 {% extends 'base.html'%}
-{% block navbar%} 
-{% endblock %} 
-{% block content %} 
+{% block navbar%}
+{% endblock %}
+{% block content %}
 <head>
-    <title>Portada</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/mispublicaciones.css' %}">
 </head>
 <body>
-	<div> 
+	<div>
 		<h1>Conoce todas tus publicaciones</h1>
 	</div>
-	<div> 
+	<div>
 			{% for publicaciones in mispublicaciones %}
 			<div class="panel panel-default">
    			<div class="panel-heading"><a href="{% url 'verpublicacion' pk=publicaciones.idPublicacion %}"><h3>{{ publicaciones.tituloPublicacion }}</h3></a>
