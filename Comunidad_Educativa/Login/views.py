@@ -65,11 +65,6 @@ def registrar(request):
 	return render(request,'registrar.html', { 'form': form })
 
 
-        
-def portada(request):
-	return render(request, 'portada.html')
-
-
 def bienvenido(request):
     return render(request, 'bienvenido.html')
 

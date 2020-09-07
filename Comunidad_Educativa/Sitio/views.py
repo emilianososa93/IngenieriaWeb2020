@@ -55,6 +55,7 @@ def nuevapublicacion(request):
 def mispublicaciones(request):
 	_usuario = request.user.id
 	mispublicaciones = Publicacion.objects.all().filter(idUsuarioPublicacion = _usuario)
+	import ipdb; ipdb.set_trace()
 	return render(request, 'mispublicaciones.html', {'mispublicaciones': mispublicaciones})
 
 
@@ -100,9 +101,6 @@ def editarpublicacion(request,pk):
 			{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario})
 	else:
 		return HttpResponseRedirect("/errorpage")
-
-
-
 
 def portada(request):
 	lista_publicacion = Publicacion.objects.all()
