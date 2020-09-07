@@ -1,0 +1,15 @@
+.mseccion{
+    text-align: right;
+}
+
+.panel{
+	width: 60%;
+	margin-left: 300px;
+}
+.panel-heading{
+    background-color: #b2c2bf;  
+}
+
+li{
+	list-style:none;
+}
