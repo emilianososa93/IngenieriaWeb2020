@@ -1,0 +1,134 @@
+{% extends 'base.html'%}
+{% load static %}
+{%load staticfiles%}
+{% block content %}
+{% block body%}
+
+
+<head>
+  <title>Registro</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+  <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'static/css/base.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'static/css/verpublicacion.css' %}">
+</head>
+
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <form class="form-horizontal"  method="GET" >
+        {% csrf_token%}
+        <div class="col-md-5 main-section">
+          <div class="form-group">
+            <label for="tipoPublicacion">Categoría</label>
+            <br>
+            <input name="tipoPublicacion"  type="text" value="{{publicacion.tipoPublicacion}}" readonly="readonly">
+          </div>
+          <div class="form-group">
+            <label for="tituloPublicacion">Titulo de Publicación</label>
+            <br>
+            <input name="tituloPublicacion"  type="text" value="{{publicacion.tituloPublicacion}}" readonly="readonly">
+          </div>
+          <div class="form-group">
+            <label for="precio">Precio por Hora ($)</label>
+            <br>
+            <input name="precio"  type="text" value="{{publicacion.precio}}" readonly="readonly">
+          </div>
+          <div class="form-group">
+            <label for="Contenido" >Descripción</label>
+            <br>
+            <textarea name="Contenido" type="text" readonly="readonly" style="width: 100%; height: 40%; fontsize: 16;">
+              {{publicacion.Contenido}}
+            </textarea>
+          </div>
+          <div class="form-group">
+            <label for="image" >Imagen</label>
+            <br>
+            <img src="/media/{{publicacion.imagen}}" class="thumbnail" alt="image">
+          </div>
+          {% if request.user == user %}
+          <div>
+            <button class="btn btnprimary" name="action" value="EditarPublicacion">
+              <a href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
+              </a>
+            </button>
+          </div>
+          {% endif %}
+
+        </div>
+        <div class="col-md-1">
+        </div>
+
+        <div class="col-md-5" >
+          <div>
+            <div class="col-md-5 modal-content">
+              <h3><b>Información de Contacto</b></h3>
+              <div class="form-group user-section">
+                <label>Nombre de Usuario:</label>
+                <input name="nombreUsuario"  type="text" value="{{user.username}}" readonly="readonly">
+              </div>
+              <div class="form-group">
+                <label>Nombre:</label>
+                <input name="nombre"  type="text" value="{{user.first_name}}"  readonly="readonly">
+              </div>
+              <div class="form-group">
+                <label>Apellido:</label>
+                <input name="apellido"type="text" value="{{user.last_name}}"  readonly="readonly">
+              </div>
+              <div class="form-group">
+                <label>Correo:</label>
+                <input name="correo"  type="text" value="{{user.email}}"  readonly="readonly">
+              </div>
+              <div class="form-group">
+                <label>Telefono:</label>
+                <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero}}"  readonly="readonly">
+              </div>
+              <div class="form-group">
+                <label>Localidad:</label>
+                <input name="localidad" type="text" value="{{perfil.ciudad}}"  readonly="readonly">
+              </div>
+              <div class="form-group">
+                <label>Provincia:</label>
+                <input name="provincia" type="text" value="{{perfil.provincia}}"  readonly="readonly">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+      <div id="publicarcomentario">
+        {% if request.user.is_authenticated %}
+        <form class="form-horizontal"  action="{% url 'verpublicacion' publicacion.idPublicacion %}" method="POST">
+          {% csrf_token%}
+          <div class="form-group">
+            <label for="contenidoComentario">Deja un comentario:</label>
+            <br>
+            {{form.ContenidoComentario}}
+          </div>
+          <div align="center">
+            <button class="btn btnprimary" type="submit" name="action" value="Publicar">Publicar Comentario
+            </button>
+          </div>
+        </form>
+      </div>
+      {% else %}
+      <p>¿Quieres hacer un comentario? Inicia sesión o registrate.
+        {% endif %}
+      </div>
+
+      <form method="POST" id='post-form' >
+        {% csrf_token %}
+        <input id='pub-id' hidden value="{{ publicacion.idPublicacion }}">
+      </form>
+
+    </body>
+    {% endblock%}
+    {% endblock %}
+
+    </html>
