@@ -1,6 +1,5 @@
 {% extends 'base.html'%}
 {% load static %}
-{% load staticfiles %}
 {% block content %}
 {% block body%}
 
@@ -40,14 +39,9 @@
           <div class="form-group">
             <label for="Contenido" >Descripción</label>
             <br>
-            <textarea name="Contenido" type="text" readonly="readonly" style="width: 100%; height: 40%; fontsize: 16">
+            <textarea name="Contenido" type="text" readonly="readonly" style="width: 80%; height: 20%">
               {{publicacion.Contenido}}
             </textarea>
-          </div>
-          <div class="form-group">
-            <label for="image" >Imagen</label>
-            <br>
-            <img src="/media/{{publicacion.imagen}}" class="thumbnail" alt="image">
           </div>
           {% if request.user == user %}
           <div>
@@ -57,6 +51,12 @@
             </button>
           </div>
           {% endif %}
+          <div class="form-group">
+            <label for="image" >Imagen</label>
+            <br>
+            <img src="/media/{{publicacion.imagen}}" class="thumbnail" alt="image">
+          </div>
+          
           
         </div>
         <div class="col-md-1">
@@ -94,6 +94,7 @@
                 <label>Provincia:</label>
                 <input name="provincia" type="text" value="{{perfil.provincia}}"  readonly="readonly">
               </div>
+
             </div>
           </div>
         </form>
@@ -117,7 +118,7 @@
         </form>
       </div>
       {% else %}
-      <p>¿Quieres hacer un comentario? Inicia sesión o registrate.
+      <p>¿Quieres hacer un comentario? <a href="/login/">Inicia Sesión</a>. o <a href="/registrar/">Registrate</a>.
         {% endif %}
       </div>
 

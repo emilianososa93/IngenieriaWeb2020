@@ -55,7 +55,6 @@ def nuevapublicacion(request):
 def mispublicaciones(request):
 	_usuario = request.user.id
 	mispublicaciones = Publicacion.objects.all().filter(idUsuarioPublicacion = _usuario)
-	import ipdb; ipdb.set_trace()
 	return render(request, 'mispublicaciones.html', {'mispublicaciones': mispublicaciones})
 
 
