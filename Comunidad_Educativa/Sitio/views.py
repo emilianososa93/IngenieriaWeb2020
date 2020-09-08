@@ -67,11 +67,14 @@ def verpublicacion(request,pk):
 		return HttpResponseRedirect('/verpublicacion/%s' %pk )
 
 	else:
-		usuario = publicacion.idUsuarioPublicacion
-		perfilUsuario = Perfil.objects.all().filter(usuario = usuario).first()
+		usuario  = []
+		_usuario = publicacion.idUsuarioPublicacion
+		perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
+		for _perfil in perfilesUsuario:
+			usuario.append(Perfil.objects.all().last())
 
 
-	return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario})
+	return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'usuario': usuario, 'perfil': perfilesUsuario})
 
 def editarpublicacion(request,pk):
 	model = Publicacion
@@ -93,11 +96,14 @@ def editarpublicacion(request,pk):
 			publicacion.save()
 			return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 		else:
-			usuario = publicacion.idUsuarioPublicacion
-			perfilUsuario = Perfil.objects.all().filter(usuario = usuario).first()
+			usuario  = []
+			_usuario = publicacion.idUsuarioPublicacion
+			perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
+			for _perfil in perfilesUsuario:
+				usuario.append(Perfil.objects.all().last())
 
 			return render(request, 'editarpublicacion.html',
-			{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario})
+			{'publicacion': publicacion,'form': form,'usuario': usuario, 'perfil': perfilesUsuario})
 	else:
 		return HttpResponseRedirect("/errorpage")
 

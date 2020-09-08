@@ -73,6 +73,7 @@
                 <label>Correo:</label>
                 <input name="correo"  type="text" value="{{user.email|default_if_none:''}}"  readonly="readonly">
               </div>
+              {% for perfil in usuario|slice:":1" %}
               <div class="form-group">
                 <label>Telefono:</label>
                 <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero|default_if_none:''}}"  readonly="readonly">
@@ -85,7 +86,7 @@
                 <label>Provincia:</label>
                 <input name="provincia" type="text" value="{{perfil.provincia|default_if_none:''}}"  readonly="readonly">
               </div>
-
+              {% endfor %}
             </div>
           </div>
         </form>
