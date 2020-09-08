@@ -1,9 +1,31 @@
-.modal-content{
-  background-color: #FEFEE7;
-  width: 100%;
+.main-section{
+    margin:0 auto;
+    margin-top:1%;
+    margin-left: 5%;
+    padding: 0;
 }
 
+.main-section h3{
+    text-align: center;
+}
 
-body{
-  background-color: #FEFEE7;
+.form-group input{
+    margin-left: 120%;
+}
+
+.modal-content{
+    background-color: #FEFEE7;
+    width: 100%;
+}
+
+.modal-content label{
+    padding-left: 0%;
+}
+
+.modal-content input{
+    width: 40%;
+}
+
+.btn-primary{
+    margin-top: 20px;
 }

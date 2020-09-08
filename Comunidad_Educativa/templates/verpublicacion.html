@@ -51,11 +51,6 @@
             </button>
           </div>
           {% endif %}
-          <div class="form-group">
-            <label for="image" >Imagen</label>
-            <br>
-            <img src="/media/{{publicacion.imagen}}" class="thumbnail" alt="image">
-          </div>
           
           
         </div>
@@ -100,9 +95,7 @@
         </form>
       </div>
     </div>
-
-
-      <div id="publicarcomentario">
+      <div class="main-section" id="publicarcomentario">
         {% if request.user.is_authenticated %}
         <form class="form-horizontal"  action="{% url 'verpublicacion' publicacion.idPublicacion %}" method="POST">
           {% csrf_token%}
