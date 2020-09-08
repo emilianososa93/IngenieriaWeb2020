@@ -19,6 +19,10 @@
             	<form  action="{% url 'editarusuario' %}" method="POST">
 		        {% csrf_token %}
 					<div class="col-md-25">
+			            <div class="form-group" >
+			              <label>Nombre de Usuario</label>
+			              <input name="nombreUsuario"  type="text" value="{{user.username|default_if_none:''}}" readonly="readonly">
+			            </div>
 				        <div class="form-group">
 			              <label>Nombre</label>
 			              <input name="nombre"  type="text" value="{{user.first_name|default_if_none:''}}" >
