@@ -11,12 +11,8 @@ body{
 }
 
 .modal-content{
-    background-color: #FEFEE7;
     margin-top:0%;
-    opacity: .85;
-    padding: 0 20px;
-    position: absolute;
-    width: 700px;
+    position: relative;
 }
 .user-img{
     margin-top: -30px;
@@ -32,9 +28,9 @@ body{
 
 .form-group input{
     height: 35px;
-    width: 300px;
+    width: 120%;
     font-size: 18px;
-    border:0;
+    border:100;
     padding-left: 54px;
     border-radius: 5px;
 }
