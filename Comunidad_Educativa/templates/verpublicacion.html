@@ -43,7 +43,7 @@
               {{publicacion.Contenido}}
             </textarea>
           </div>
-          {% if request.user == user %}
+          {% if request.user.is_authenticated and request.user == user %}
           <div>
             <button class="btn btnprimary" name="action" value="EditarPublicacion">
               <a href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
@@ -92,31 +92,23 @@
         </form>
       </div>
     </div>
-      <div class="main-section" id="publicarcomentario">
-        {% if request.user.is_authenticated %}
-        <form class="form-horizontal"  action="{% url 'verpublicacion' publicacion.idPublicacion %}" method="POST">
-          {% csrf_token%}
-          <div class="form-group">
-            <label for="contenidoComentario">Deja un comentario:</label>
-            <br>
-            {{form.ContenidoComentario}}
-          </div>
-          <div align="left">
-            <button class="btn btnprimary" type="submit" name="action" value="Publicar">Publicar Comentario
-            </button>
-          </div>
-        </form>
-      </div>
-      {% else %}
-      <p>¿Quieres hacer un comentario? <a href="/login/">Inicia Sesión</a>. o <a href="/registrar/">Registrate</a>.
-        {% endif %}
-      </div>
+    <div class="main-section" id="publicarcomentario">
 
+        {% for comment in post.comments.all %}
+        <div class="comment">
+            <div class="date">{{ comment.created_date }}</div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text|linebreaks }}</p>
+        </div>
+    {% empty %}
+        <p>No hay comentarios todavia :(</p>
+    {% endfor %}
+      </div>
       <form method="POST" id='post-form' >
         {% csrf_token %}
         <input id='pub-id' hidden value="{{ publicacion.idPublicacion }}">
       </form>
-
+      <hr>
     </body>
     {% endblock%}
     {% endblock %}
