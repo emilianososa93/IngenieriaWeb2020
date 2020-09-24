@@ -32,7 +32,7 @@
 			              <label>Apellido</label>
 			              <input name="apellido"type="text" value="{{user.last_name|default_if_none:''}}" >
 			            </div>
-			            <div class="form-group">
+<!--			            <div class="form-group">
 			              <label>Correo</label>
 			              <input name="email"  type="text" value="{{user.email|default_if_none:''}}" required="" readonly="readonly">
 			            </div>
@@ -55,6 +55,7 @@
 				          <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero|default_if_none:''}}">
 				        </div>
 					{% endfor %}
+					-->
 			        <button class="btn btn-primary" type="submit" name="action" value="Guardar">Guardar</button>
 			    </form>
 		    </div>
