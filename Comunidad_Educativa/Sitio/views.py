@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required	
+from django.contrib.auth.decorators import login_required
 
 from .forms import PublicacionForm
 from .models import Publicacion
@@ -74,7 +74,7 @@ def verpublicacion(request,pk):
 			usuario.append(Perfil.objects.all().last())
 
 
-	return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'usuario': usuario, 'perfil': perfilesUsuario})
+	return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'user': _usuario, 'perfil': perfilesUsuario})
 
 def editarpublicacion(request,pk):
 	model = Publicacion
