@@ -13,6 +13,14 @@
     margin:0 auto;
     margin-left: 2%;
     padding-left: 0px;
+    opacity:  0.5;
+}
+
+.form-group textarea{
+    width: 80%; 
+    height: 20%; 
+    opacity:  0.5; 
+    text-indent: -50px;
 }
 
 .modal-content{
