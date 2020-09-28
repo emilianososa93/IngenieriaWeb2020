@@ -11,7 +11,7 @@ class Publicacion(models.Model):
     tipoPublicacion = (
         ('Primario', 'Primario'),
         ('Secundario','Secundario'),
-        ('Universitarios','Universitarios'),         
+        ('Universitarios','Universitarios'),
     )
 
     estadoPublicacion = (
@@ -37,3 +37,10 @@ class Publicacion(models.Model):
 
     def get_absolute_url(self):
         return reverse ('nuevapublicacion', args=[str(self.idPublicacion)])
+
+class SolicitudContacto(models.Model):
+    idUsuarioSolicitante = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='request_create', on_delete=models.CASCADE)
+    idUsuarioReceptor  =models.ForeignKey(settings.AUTH_USER_MODEL, related_name='request_receive', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return (self.idUsuarioSolicitante)
