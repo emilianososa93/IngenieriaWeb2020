@@ -12,4 +12,5 @@ urlpatterns = [
     url('mispublicaciones/', views.mispublicaciones, name='mispublicaciones'),
     url(r'^verpublicacion/(?P<pk>[0-9]+)/$', views.verpublicacion, name='verpublicacion'),
     url(r'^editarpublicacion/(?P<pk>[0-9]+)/$', views.editarpublicacion, name='editarpublicacion'),
+	url(r'^solicitarcontacto/(?P<pk>[0-9]+)/$', views.solicitarcontacto, name='solicitarcontacto'),
 ]

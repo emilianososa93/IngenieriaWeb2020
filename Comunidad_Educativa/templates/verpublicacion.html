@@ -90,7 +90,21 @@
               </div>
               {% endfor %}
               -->
-            </div>
+
+              <!-- ACÁ VA EL BOTÓN DE SOLICITAR CONTACTO -->
+              {% if request.user != user %}
+              {% if solicitud %}
+              <div>
+                <p>¡Tus datos de contacto ya han sido enviados! Pronto se comunicarán contigo.</p>
+              </div>
+              {% else %}
+                <div>
+                  <button class="btn btnprimary" name="action" value="SolicitarContacto">
+                    <a href="{% url 'solicitarcontacto' pk=publicacion.idPublicacion %}">Ponte en contacto!</a>
+                  </button>
+                </div>
+              {% endif %}
+              {% endif %}
           </div>
         </form>
       </div>
