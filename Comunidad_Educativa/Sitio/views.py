@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-
+from .filters import PublicacionFilter
 from .forms import PublicacionForm
 from .models import Publicacion
 from Login.models import Perfil
@@ -22,16 +22,20 @@ def nuevapublicacion(request):
 	if request.method == 'POST':
 		form = PublicacionForm(request.POST)
 		tipoPublicacion = request.POST['tipoPublicacion']
+		materia = request.POST['materia']
 		tituloPublicacion = request.POST['tituloPublicacion']
+		estadoPublicacion = request.POST['estadoPublicacion']
 		precio = request.POST['precio']
 		Contenido = request.POST['Contenido']
 		idUsuarioPublicacion = request.user
 		publicacion = Publicacion(
 			tipoPublicacion = tipoPublicacion,
-			tituloPublicacion = tituloPublicacion,
+			materia = materia,
+			tituloPublicacion = tituloPublicacion,			
+			estadoPublicacion = estadoPublicacion,
 			precio = precio,
 			Contenido = Contenido,
-			idUsuarioPublicacion = idUsuarioPublicacion
+			idUsuarioPublicacion = idUsuarioPublicacion			
         )
 		publicacion.save()
 
@@ -86,10 +90,14 @@ def editarpublicacion(request,pk):
 		if request.method == 'POST':
 			form = PublicacionForm(request.POST)
 			tipoPublicacion = request.POST['tipoPublicacion']
+			materia = request.POST['materia']
+			estadoPublicacion = request.POST['estadoPublicacion']
 			tituloPublicacion = request.POST['tituloPublicacion']
 			precio = request.POST['precio']
 			contenido = request.POST['contenido']
 			publicacion.tipoPublicacion = tipoPublicacion
+			publicacion.materia = materia
+			publicacion.estadoPublicacion = estadoPublicacion
 			publicacion.tituloPublicacion = tituloPublicacion
 			publicacion.precio = precio
 			publicacion.Contenido = contenido
@@ -108,5 +116,8 @@ def editarpublicacion(request,pk):
 		return HttpResponseRedirect("/errorpage")
 
 def portada(request):
-	lista_publicacion = Publicacion.objects.all()
-	return render(request, 'portada.html', {'lista_publicacion' : lista_publicacion})
+	lista_publicacion = Publicacion.objects.all().distinct()
+	myFilter = PublicacionFilter(request.GET, queryset=lista_publicacion)
+	lista_publicacion=  myFilter.qs
+	return render(request, "portada.html", {'lista_publicacion' : lista_publicacion,'Filter':myFilter})
+

@@ -17,9 +17,13 @@
   {% csrf_token%}
   <div class="col-md-5 main-section" >
     <div class="form-group">
-      <label for="tipoPublicacion">Categoria</label>
-      {{form.tipoPublicacion}}
+        <label for="tipoPublicacion">Categoria</label>
+        <input name="tituloPublicacion"  type="text" value="{{publicacion.tipoPublicacion}}" readonly="readonly"  style="opacity: 0.5">         
     </div>
+    <div class="form-group">
+        <label for="estadoPublicacion">Estado Publicacion</label>
+         <input name="tituloPublicacion"  type="text" value="{{publicacion.estadoPublicacion}}" readonly="readonly" style="opacity: 0.5"> 
+      </div>
     <div class="form-group">
       <label for="tituloPublicacion">Titulo de Publicación</label>
       <br>
