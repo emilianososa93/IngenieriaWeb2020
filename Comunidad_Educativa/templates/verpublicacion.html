@@ -55,8 +55,8 @@
 
           {% if request.user == user %}
           <div>
-            <button class="btn btnprimary" name="action" value="EditarPublicacion">
-              <a href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
+            <button class="btn btn-primary" name="action" value="EditarPublicacion">
+              <a style="color: white" href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
               </a>
             </button>
           </div>
@@ -87,10 +87,11 @@
               </div>
               {% else %}
                 <div >
-                  <button class="btn btnprimary" name="action" value="SolicitarContacto">
-                    <a href="{% url 'solicitarcontacto' pk=publicacion.idPublicacion %}">Ponte en contacto!</a>
+                  <button class="btn btn-primary" name="action" value="SolicitarContacto">
+                    <a style="color: white"  href="{% url 'solicitarcontacto' pk=publicacion.idPublicacion %}">Ponte en contacto!</a>
                   </button>
                 </div>
+              <br>
               {% endif %}
               {% endif %}
           </div>

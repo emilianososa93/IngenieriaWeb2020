@@ -62,7 +62,7 @@ def mispublicaciones(request):
 	mispublicaciones = Publicacion.objects.all().filter(idUsuarioPublicacion = _usuario)
 	return render(request, 'mispublicaciones.html', {'mispublicaciones': mispublicaciones})
 
-
+@login_required
 def verpublicacion(request,pk):
     form = PublicacionForm(request.POST)
     _idPublicacion = pk
@@ -85,6 +85,7 @@ def verpublicacion(request,pk):
 
         return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'user': _usuario, 'perfil': perfilesUsuario, 'solicitud':existesolicitud })
 
+@login_required
 def editarpublicacion(request,pk):
 	model = Publicacion
 	form = PublicacionForm(request.POST)
@@ -135,7 +136,7 @@ def solicitarcontacto(request,pk):
 
     email_subject   = 'Alguien quiere ponerse en contacto contigo! :)'
     #corregir link y contenido
-    email_body      = "Hola %s! El usuario '%s' quiere ponerse en contacto contigo por tu publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s. Puedes contactarlo por email o teléfono. Su telefono es: " % (_usuario.first_name, solicitante.username, pk)
+    email_body      = "Hola %s! El usuario '%s' quiere ponerse en contacto contigo por tu publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s. Puedes contactarlo por email o teléfono." % (_usuario.first_name, solicitante.username, pk)
 
     send_mail(email_subject,email_body, 'comunidadeducativaseia@gmail.com',[_email])
 
