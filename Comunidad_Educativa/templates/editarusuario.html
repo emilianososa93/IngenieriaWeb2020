@@ -32,12 +32,12 @@
 			              <label>Apellido</label>
 			              <input name="apellido"type="text" value="{{user.last_name|default_if_none:''}}" >
 			            </div>
-<!--			            <div class="form-group">
+			            <div class="form-group">
 			              <label>Correo</label>
 			              <input name="email"  type="text" value="{{user.email|default_if_none:''}}" required="" readonly="readonly">
 			            </div>
 			        </div>
-			        	{% for perfil in usuario|slice:":1" %}
+<!--			        	{% for perfil in usuario|slice:":1" %}
 			            <div class="form-group">
 			              <label>Dirección</label>
 			              <input name="direccion"type="text" value="{{perfil.direccion|default_if_none:''}}" >
