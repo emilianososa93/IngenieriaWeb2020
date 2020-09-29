@@ -9,9 +9,9 @@ from django.urls import reverse
 
 class Publicacion(models.Model):
     tipoPublicacion = (
-        ('Primario', 'Primario'),
-        ('Secundario','Secundario'),
-        ('Universitarios','Universitarios'),
+        ('Primario', 'Nivel Primario'),
+        ('Secundario','Nivel Secundario'),
+        ('Universitarios','Nivel Universitarios'),
     )
 
     estadoPublicacion = (
@@ -20,12 +20,12 @@ class Publicacion(models.Model):
     )
     Materias = (
         ('Matemáticas','Matemáticas'),
-        ('Sociales','Sociales'),
-        ('Naturales','Naturales'),
+        ('Sociales','Ciencias Sociales'),
+        ('Naturales','Ciencias Naturales'),
         ('Lengua','Lengua'),
-        ('InglesI','InglesI'),
-        ('InglesII','InglesII'),
-        ('InglesIII','InglesIII'),
+        ('InglesI','InglésI'),
+        ('InglesII','InglésII'),
+        ('InglesIII','InglésIII'),
         ('Literatura','Literatura'),
         ('Historia','Historia'),
         ('Química','Química'),
