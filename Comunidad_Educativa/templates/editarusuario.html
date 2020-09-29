@@ -21,7 +21,7 @@
 					<div class="col-md-25">
 			            <div class="form-group" >
 			              <label>Nombre de Usuario</label>
-			              <input name="nombreUsuario"  type="text" value="{{user.username|default_if_none:''}}" readonly="readonly">
+			              <input name="nombreUsuario"  type="text" value="{{user.username|default_if_none:''}}" readonly="readonly" style="opacity: 0.5">
 			            </div>
 				        <div class="form-group">
 			              <label>Nombre</label>
@@ -34,7 +34,7 @@
 			            </div>
 			            <div class="form-group">
 			              <label>Correo</label>
-			              <input name="email"  type="text" value="{{user.email|default_if_none:''}}" required="" readonly="readonly">
+			              <input name="email"  type="text" value="{{user.email|default_if_none:''}}" required="" readonly="readonly" style="opacity: 0.5">
 			            </div>
 			        </div>
 <!--			        	{% for perfil in usuario|slice:":1" %}
