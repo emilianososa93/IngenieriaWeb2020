@@ -52,12 +52,12 @@
         <h3><b>Información de Contacto</b></h3>
         <div class="form-group">
           <label>Nombre:</label>
-          <input name="nombre"  type="text" value="{{user.first_name|default_if_none:''}}"  readonly="readonly">
+          <input name="nombre"  type="text" value="{{user.first_name|default_if_none:''}}"  readonly="readonly" style="opacity: 0.5">
         </div>
 
         <div class="form-group">
           <label>Apellido:</label>
-          <input name="apellido"type="text" value="{{user.last_name|default_if_none:''}}"  readonly="readonly">
+          <input name="apellido"type="text" value="{{user.last_name|default_if_none:''}}"  readonly="readonly" style="opacity: 0.5">
         </div>
 <!--
         <div class="form-group">

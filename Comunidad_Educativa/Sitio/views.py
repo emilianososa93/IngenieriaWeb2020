@@ -135,7 +135,7 @@ def solicitarcontacto(request,pk):
 
     email_subject   = 'Alguien quiere ponerse en contacto contigo! :)'
     #corregir link y contenido
-    email_body      = "Hola %s! El usuario %s quiere ponerse en contacto contigo por tu publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s Puedes contactarlo por email o teléfono" % (_usuario.first_name, solicitante.username, pk)
+    email_body      = "Hola %s! El usuario '%s' quiere ponerse en contacto contigo por tu publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s. Puedes contactarlo por email o teléfono. Su telefono es: " % (_usuario.first_name, solicitante.username, pk)
 
     send_mail(email_subject,email_body, 'comunidadeducativaseia@gmail.com',[_email])
 

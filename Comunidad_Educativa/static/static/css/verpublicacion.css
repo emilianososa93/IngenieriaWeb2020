@@ -1,3 +1,5 @@
+
+
 .main-section{
     margin:0 auto;
     margin-top:1%;
@@ -8,6 +10,7 @@
 .main-section h3{
     text-align: center;
 }
+
 
 .form-group input{
     margin:0 auto;
@@ -31,6 +34,8 @@
 .modal-content label{
     padding-left: 5px;
 }
+
+
 
 .modal-content input{
     width: 40%;

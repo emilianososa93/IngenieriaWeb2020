@@ -24,9 +24,16 @@
             <label for="tipoPublicacion">Categoría</label>
             <br>
             <input name="tipoPublicacion"  type="text" value="{{publicacion.tipoPublicacion}}" readonly="readonly">
-
-<!--            <span>{{publicacion.tipoPublicacion}}</span>-->
-
+          </div>
+          <div class="form-group">
+            <label for="materia">Materia</label>
+            <br>
+            <input name="materia"  type="text" value="{{publicacion.materia}}">
+          </div>
+          <div class="form-group">
+            <label for="estadoPublicacion">Estado Publicación</label>
+            <br>
+            <input name="estadoPublicacion"  type="text" value="{{publicacion.estadoPublicacion}}">
           </div>
           <div class="form-group">
             <label for="tituloPublicacion">Titulo de Publicación</label>
@@ -71,34 +78,15 @@
                 <label>Apellido:</label>
                 <input name="apellido"type="text" value="{{user.last_name|default_if_none:''}}"  readonly="readonly">
               </div>
-<!--              <div class="form-group">
-                <label>Correo:</label>
-                <input name="correo"  type="text" value="{{user.email|default_if_none:''}}"  readonly="readonly">
-              </div>
-              {% for perfil_ in perfil|slice:":1" %}
-              <div class="form-group">
-                <label>Telefono:</label>
-                <input name="telefonoNumero"  type="text" value="{{perfil_.telefonoNumero|default_if_none:''}}"  readonly="readonly">
-              </div>
-              <div class="form-group">
-                <label>Localidad:</label>
-                <input name="localidad" type="text" value="{{perfil_.ciudad|default_if_none:''}}"  readonly="readonly">
-              </div>
-              <div class="form-group">
-                <label>Provincia:</label>
-                <input name="provincia" type="text" value="{{perfil_.provincia|default_if_none:''}}"  readonly="readonly">
-              </div>
-              {% endfor %}
-              -->
 
               <!-- ACÁ VA EL BOTÓN DE SOLICITAR CONTACTO -->
               {% if request.user != user %}
               {% if solicitud %}
-              <div>
-                <p>¡Tus datos de contacto ya han sido enviados! Pronto se comunicarán contigo.</p>
+              <div class="form-group" style="color: blue;">
+                <strong>¡Tus datos de contacto ya han sido enviados! Pronto se comunicarán contigo.</strong>
               </div>
               {% else %}
-                <div>
+                <div >
                   <button class="btn btnprimary" name="action" value="SolicitarContacto">
                     <a href="{% url 'solicitarcontacto' pk=publicacion.idPublicacion %}">Ponte en contacto!</a>
                   </button>

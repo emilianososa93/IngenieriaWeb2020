@@ -9,22 +9,12 @@
     text-align: center;
 }
 
-.form-group input{
-    margin-left: 3%;
-}
 
 .modal-content{
     background-color: #FEFEE7;
     width: 100%;
 }
 
-.modal-content label{
-    padding-left: 0%;
-}
-
-.modal-content input{
-    width: 40%;
-}
 
 .btn-primary{
     margin-top: 20px;
