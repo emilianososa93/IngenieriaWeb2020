@@ -153,7 +153,7 @@ def solicitarcontacto(request,pk):
     return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
 def portada(request):
-	lista_publicacion = Publicacion.objects.all().distinct()
+	lista_publicacion = Publicacion.objects.all().distinct().order_by('-idPublicacion')
 	myFilter = PublicacionFilter(request.GET, queryset=lista_publicacion)
 	lista_publicacion=  myFilter.qs
 	return render(request, "portada.html", {'lista_publicacion' : lista_publicacion,'Filter':myFilter})
