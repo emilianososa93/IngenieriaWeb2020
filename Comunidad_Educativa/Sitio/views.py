@@ -15,6 +15,8 @@ except ImportError:
 from django.views.decorators.http import require_POST
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
+import datetime
+from django.utils import timezone
 
 @login_required
 def nuevapublicacion(request):
@@ -153,8 +155,18 @@ def solicitarcontacto(request,pk):
     return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
 def portada(request):
-	lista_publicacion = Publicacion.objects.all().distinct().order_by('-idPublicacion')
+	lista_publicacion = Publicacion.objects.all().filter(FechaBajaPublicacion = None).distinct().order_by('-idPublicacion')
 	myFilter = PublicacionFilter(request.GET, queryset=lista_publicacion)
 	lista_publicacion=  myFilter.qs
 	return render(request, "portada.html", {'lista_publicacion' : lista_publicacion,'Filter':myFilter})
 
+
+def eliminarpublicacion(request,pk):
+	_idPublicacion = pk
+	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
+	fechabaja= timezone.now()
+	publicacion.FechaBajaPublicacion = fechabaja
+	publicacion.estadoPublicacion = 'Eliminado'
+	publicacion.save()
+
+	return HttpResponseRedirect('/verpublicacion/%s' %pk  )

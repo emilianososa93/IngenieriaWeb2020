@@ -20,6 +20,12 @@
     <div class="row">
       <form class="form-horizontal"  method="GET" >
         <div class="col-md-5 main-section">
+         {% if publicacion.estadoPublicacion == 'Eliminado' %}
+                <br>
+                <div class="form-group" style="color: red;">
+                <strong>¡Tu publicacion ya se encuenta Eliminada!</strong>
+              </div>
+            {% endif %}
           <div class="form-group">
             <label for="tipoPublicacion">Categoría</label>
             <br>
@@ -49,12 +55,15 @@
           </div>
 
           {% if request.user == user %}
-          <div>
-            <button class="btn btn-primary" name="action" value="EditarPublicacion">
-              <a style="color: white" href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
-              </a>
-            </button>
-          </div>
+           <div>
+             <button class="btn btn-primary" name="action" value="EditarPublicacion">
+               <a style="color: white" href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
+               </a>
+             </button>
+             <button class="btn btn-primary" name="action" value="EliminarPublicacion">
+               <a style="color: white"  href="{% url 'eliminarpublicacion' pk=publicacion.idPublicacion %}">Eliminar Publicación</a>
+             </button>
+           </div>
           {% endif %}
 
         </div>
