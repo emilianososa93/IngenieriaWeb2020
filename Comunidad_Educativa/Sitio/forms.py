@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from . models import *
 from django.db import models
-from django.forms import ModelForm, Textarea
+from django.forms import ModelForm, Textarea 
 
 
 tipoPubli = (
@@ -19,3 +19,9 @@ class PublicacionForm(forms.Form):
 	localidad = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'validate form-control'}))
 	provincia = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'validate form-control'}))
 	imagen = forms.ImageField()
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('author', 'text',)

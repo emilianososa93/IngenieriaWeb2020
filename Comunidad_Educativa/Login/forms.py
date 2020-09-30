@@ -12,3 +12,4 @@ class RegisterForm(forms.Form):
     email = forms.EmailField(max_length=50 , widget=forms.TextInput(attrs={'class' : 'validate form-control','placeholder': ' Correo'}))
     contraseña = forms.CharField(widget=forms.PasswordInput(attrs={'class' : 'validate form-control','placeholder ': ' Contraseña'}))
     confirmarcontraseña =forms.CharField(widget=forms.PasswordInput(attrs={'class' : 'validate form-control','placeholder': ' Confirmar contraseña'}))
+

@@ -92,18 +92,20 @@
         </form>
       </div>
     </div>
-    <div class="main-section" id="publicarcomentario">
-
-        {% for comment in post.comments.all %}
+    <hr>
+    {% for comment in publicacion.comments.all %}
         <div class="comment">
             <div class="date">{{ comment.created_date }}</div>
             <strong>{{ comment.author }}</strong>
             <p>{{ comment.text|linebreaks }}</p>
         </div>
     {% empty %}
-        <p>No hay comentarios todavia :(</p>
+        <p>No hay comentarios todavia!</p>
     {% endfor %}
-      </div>
+    <div class="main-section" id="publicarcomentario">
+      <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=publicacion.pk %}">Agrega un comentario</a>
+    </div>
+      <hr>
       <form method="POST" id='post-form' >
         {% csrf_token %}
         <input id='pub-id' hidden value="{{ publicacion.idPublicacion }}">
