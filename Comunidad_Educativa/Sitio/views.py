@@ -110,7 +110,7 @@ def editarpublicacion(request,pk):
 			publicacion.precio = precio
 			publicacion.Contenido = contenido
 			publicacion.save()
-			return HttpResponseRedirect('/verpublicacion/%s' %pk  )
+			return HttpResponseRedirect('/editarpublicacion/%s' %pk  )
 		else:
 			usuario  = []
 			_usuario = publicacion.idUsuarioPublicacion

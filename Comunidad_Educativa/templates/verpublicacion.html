@@ -60,7 +60,7 @@
                <a style="color: white" href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
                </a>
              </button>
-             <button class="btn btn-primary" name="action" value="EliminarPublicacion">
+             <button class="btn btn-primary" name="action" value="EliminarPublicacion" id= "eliminar">
                <a style="color: white"  href="{% url 'eliminarpublicacion' pk=publicacion.idPublicacion %}">Eliminar Publicación</a>
              </button>
            </div>
@@ -132,3 +132,4 @@
   {% endblock %}
 
   </html>
+
