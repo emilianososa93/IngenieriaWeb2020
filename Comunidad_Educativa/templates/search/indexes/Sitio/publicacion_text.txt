@@ -1,0 +1,6 @@
+{{ object.idPublicacion }}
+{{ object.tituloPublicacion }}
+{{ object.FechaPublicacion }}
+{{ object.precio }}
+{{ object.materia }}
+{{ object.contenido }}

@@ -23,6 +23,9 @@
             &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp
         	<label for="tipoPublicacion" class="col-form-label">Tipo Publicación</label>
             {{ Filter.form.tipoPublicacion}}
+            &nbsp&nbsp&nbsp&nbsp
+        	<label for="ubicacionGeografica" class="col-form-label">Ubicación Geográfica</label>
+            {{ Filter.form.ubicacionGeografica}}
             &nbsp&nbsp
             <label for="materia" class="col-form-label">Materia</label>
             {{ Filter.form.materia}}
@@ -30,6 +33,10 @@
             <br>    
             &nbsp&nbsp&nbsp&nbsp        
             <button class="btn btn-primary" type="submit"> Buscar </button>
+             <button class="btn btn-primary" name="action" value="BusquedaAvanzada">
+                 <a style="color: white" href="/search">Busqueda Avanzada
+                 </a>
+             </button>
         </form>
     </div>
     <br>

@@ -3,10 +3,12 @@ from django.contrib.auth.decorators import login_required
 from .filters import PublicacionFilter
 from .forms import PublicacionForm
 from .models import Publicacion
+from .models import Comentario
 from .models import SolicitudContacto
 from Login.models import Perfil
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect
 try:
     from django.utils import simplejson as json
@@ -17,6 +19,7 @@ from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 import datetime
 from django.utils import timezone
+from django.contrib import messages
 
 @login_required
 def nuevapublicacion(request):
@@ -30,6 +33,7 @@ def nuevapublicacion(request):
 		estadoPublicacion = request.POST['estadoPublicacion']
 		precio = request.POST['precio']
 		Contenido = request.POST['Contenido']
+		ubicacionGeografica = request.POST['ubicacionGeografica']
 		idUsuarioPublicacion = request.user
 		publicacion = Publicacion(
 			tipoPublicacion = tipoPublicacion,
@@ -38,7 +42,8 @@ def nuevapublicacion(request):
 			estadoPublicacion = estadoPublicacion,
 			precio = precio,
 			Contenido = Contenido,
-			idUsuarioPublicacion = idUsuarioPublicacion			
+			idUsuarioPublicacion = idUsuarioPublicacion,		
+			ubicacionGeografica = ubicacionGeografica	
         )
 		publicacion.save()
 
@@ -61,7 +66,7 @@ def nuevapublicacion(request):
 
 def mispublicaciones(request):
 	_usuario = request.user.id
-	mispublicaciones = Publicacion.objects.all().filter(idUsuarioPublicacion = _usuario)
+	mispublicaciones = Publicacion.objects.all().filter(idUsuarioPublicacion = _usuario).distinct().order_by('-idPublicacion')
 	return render(request, 'mispublicaciones.html', {'mispublicaciones': mispublicaciones})
 
 @login_required
@@ -127,18 +132,25 @@ def editarpublicacion(request,pk):
 def solicitarcontacto(request,pk):
     solicitante = User.objects.all().filter(id = request.user.id).first()
     #por ahora solo un perfil - chequear
-    perfil_solicitante = Perfil.objects.all().filter(usuario = request.user.id)
+    
 
     _idPublicacion = pk
     publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
 
     _usuario = publicacion.idUsuarioPublicacion
+
+    perfil_solicitante = Perfil.objects.all().filter(usuario = _usuario).last()
+
+    _usuarioPublicacion = User.objects.all().filter(username = _usuario).first()
+    _perfilUsuarioPublicacion = Perfil.objects.all().filter(usuario = _usuario).first()
+
+
     _email = _usuario.email
 
 
     email_subject   = 'Alguien quiere ponerse en contacto contigo! :)'
     #corregir link y contenido
-    email_body      = "Hola %s! El usuario '%s' quiere ponerse en contacto contigo por tu publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s. Puedes contactarlo por email o teléfono." % (_usuario.first_name, solicitante.username, pk)
+    email_body      = "Hola %s! El usuario %s, %s quiere ponerse en contacto contigo por tu publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s. \nPuedes contactarlo al Email: %s o al Telefono: '%s' ." % (_usuario.first_name, _usuarioPublicacion.first_name, _usuarioPublicacion.last_name, pk, solicitante.email, perfil_solicitante.telefonoNumero)
 
     send_mail(email_subject,email_body, 'comunidadeducativaseia@gmail.com',[_email])
 
@@ -151,6 +163,7 @@ def solicitarcontacto(request,pk):
     )
 
     solicitud.save()
+    messages.error(request, "Se ha enviado una solicitud de contacto al creador de la publicación con sus datos")
 
     return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
@@ -170,3 +183,33 @@ def eliminarpublicacion(request,pk):
 	publicacion.save()
 
 	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
+
+
+
+def comentariopublicacion(request):
+	publicacion = request.POST.get("idPublicacion")
+	comentario = Comentario.objects.filter(idpublicacion = publicacion)
+
+	if request.method == 'POST' :
+		_comentario = request.POST.get("comentario")
+		comentario = Comentario.objects.filter(idpublicacion = publicacion)
+		publicacion_ = Publicacion.objects.get(pk=publicacion)
+		comentariocreado = Comentario()
+		comentariocreado.usuario = request.user
+		comentariocreado.comentario = _comentario
+		comentariocreado.fechaComentario = timezone.now()
+		comentariocreado.idpublicacion = publicacion_
+		comentariocreado.estadoComentario = 'Publicado'
+		comentariocreado.save()
+
+		comentarios = Comentario.objects.filter(idpublicacion = publicacion, fechaBajaComentario=None).order_by("-fechaComentario")
+
+	return render(request,"comentariopublicacion.html",{"comentarios":comentarios})
+
+
+
+
+
+
+
+

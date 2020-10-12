@@ -6,5 +6,5 @@ from django import forms
 class PublicacionFilter(django_filters.FilterSet):
     class Meta:
         model=Publicacion
-        fields=['tipoPublicacion','materia']
+        fields=['tipoPublicacion','materia','ubicacionGeografica']
 

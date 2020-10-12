@@ -16,7 +16,8 @@ class Publicacion(models.Model):
 
     estadoPublicacion = (
         ('Publicado','Publicado'),
-        ('Borrador','Borrador')
+        ('Borrador','Borrador'),
+        ('Eliminado','Eliminado')
     )
     Materias = (
         ('Matemáticas','Matemáticas'),
@@ -37,6 +38,7 @@ class Publicacion(models.Model):
     tituloPublicacion = models.CharField(blank=False, max_length = 50)
     tipoPublicacion = models.CharField(choices=tipoPublicacion, null=True, blank=True,max_length = 50)
     estadoPublicacion = models.CharField(choices=estadoPublicacion, null=True, blank=True,max_length = 50)
+    ubicacionGeografica =  models.TextField( null=True, blank=True,max_length = 50)
     materia = models.CharField(choices=Materias,max_length=50, null=True, blank=False)
     Contenido = models.TextField(blank=False)
     precio = models.TextField(blank=False)
@@ -57,3 +59,23 @@ class SolicitudContacto(models.Model):
 
     def __str__(self):
         return (self.idUsuarioSolicitante)
+
+
+class Comentario(models.Model):
+    estadosCargados = (
+        ('Publicado', 'Publicado'),
+        ('Borrador', 'Borrador'),
+        ('Denunciado', 'Denunciado'),
+        ('Eliminado', 'Eliminado'),
+    )
+
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    idpublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE, null=True, blank=True)
+    comentario = models.CharField(max_length=1000,null=True,blank=False)
+    fechaComentario= models.DateField(default=timezone.now, null=True)
+    fechaBajaComentario = models.DateField(null=True)
+    motivoBaja = models.CharField(max_length=500)
+    estadoComentario = models.CharField(max_length=20, choices=estadosCargados, blank=True, default='Borrador')
+
+    def __str__(self):
+        return self.comentario

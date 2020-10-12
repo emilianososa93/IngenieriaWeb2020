@@ -122,6 +122,6 @@ def editarusuario(request):
 	_usuario = request.user.id
 	perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
 	for _perfil in perfilesUsuario:
-		usuario.append(Perfil.objects.all().last())
+		usuario.append(Perfil.objects.all().distinct().last())
 
 	return render(request, "editarusuario.html", {'usuario': usuario})

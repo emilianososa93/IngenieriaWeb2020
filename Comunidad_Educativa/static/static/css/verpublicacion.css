@@ -23,11 +23,9 @@
     width: 80%; 
     height: 20%; 
     opacity:  0.5; 
-    text-indent: -50px;
 }
 
 .modal-content{
-    background-color: #FEFEE7;
     width: 100%;
 }
 

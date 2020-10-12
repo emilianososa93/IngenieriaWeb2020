@@ -24,5 +24,5 @@ from Sitio.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('Login.urls')),
-    path('',include('Sitio.urls')),
+    path('',include('Sitio.urls'))
 ]

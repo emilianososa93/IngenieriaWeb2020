@@ -20,51 +20,59 @@
     <div class="row">
       <form class="form-horizontal"  method="GET" >
         <div class="col-md-5 main-section">
-         {% if publicacion.estadoPublicacion == 'Eliminado' %}
-                <br>
-                <div class="form-group" style="color: red;">
+          {% if publicacion.estadoPublicacion == 'Eliminado' %}
+           <div class="alert alert-danger">
                 <strong>¡Tu publicacion ya se encuenta Eliminada!</strong>
-              </div>
-            {% endif %}
+          </div>
+          {% endif %}
+          <h3>Datos de la Publicación</h3>
           <div class="form-group">
             <label for="tipoPublicacion">Categoría</label>
             <br>
-            <input name="tipoPublicacion"  type="text" value="{{publicacion.tipoPublicacion}}" readonly="readonly">
+            <p>{{publicacion.tipoPublicacion}}</p>
           </div>
           <div class="form-group">
             <label for="materia">Materia</label>
             <br>
-            <input name="materia"  type="text" value="{{publicacion.materia}}">
+            {{publicacion.materia}}
+          </div>
+          <div class="form-group">
+            <label for="ubicacionGeografica">Ubicación Geográfica</label>
+            <br>
+            {{publicacion.ubicacionGeografica}}
           </div>
           <div class="form-group">
             <label for="tituloPublicacion">Titulo de Publicación</label>
             <br>
-            <input name="tituloPublicacion"  type="text" value="{{publicacion.tituloPublicacion}}" readonly="readonly">
+            {{publicacion.tituloPublicacion}}
           </div>
           <div class="form-group">
             <label for="precio">Precio por Hora ($)</label>
             <br>
-            <input name="precio"  type="text" value="{{publicacion.precio}}" readonly="readonly">
+            {{publicacion.precio}}
           </div>
           <div class="form-group">
             <label for="Contenido" >Descripción</label>
             <br>
-            <textarea name="Contenido" type="text" readonly="readonly">
-              {{publicacion.Contenido}}
-            </textarea>
+            {{publicacion.Contenido}}
           </div>
 
           {% if request.user == user %}
            <div>
-             <button class="btn btn-primary" name="action" value="EditarPublicacion">
-               <a style="color: white" href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
-               </a>
-             </button>
-             <button class="btn btn-primary" name="action" value="EliminarPublicacion" id= "eliminar">
-               <a style="color: white"  href="{% url 'eliminarpublicacion' pk=publicacion.idPublicacion %}">Eliminar Publicación</a>
-             </button>
+            {% if publicacion.estadoPublicacion != 'Eliminado' %}
+               <button class="btn btn-primary" name="action" value="EditarPublicacion">
+                 <a style="color: white" href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
+                 </a>
+               </button>
+                 <button class="btn btn-primary" name="action" value="EliminarPublicacion" id= "eliminar">
+                   <a style="color: white"  href="{% url 'eliminarpublicacion' pk=publicacion.idPublicacion %}">Eliminar Publicación</a>
+                 </button>  
+            {% endif %}
            </div>
           {% endif %}
+
+          
+
 
         </div>
         <div class="col-md-1">
@@ -75,59 +83,112 @@
             <div class="col-md-5 modal-content">
               <h3><b>Información de Contacto</b></h3>
               <div class="form-group">
-                <label>Nombre:</label>
-                <input name="nombre"  type="text" value="{{user.first_name|default_if_none:''}}"  readonly="readonly">
+                <label>Nombre: {{user.first_name|default_if_none:''}}</label>
               </div>
               <div class="form-group">
-                <label>Apellido:</label>
-                <input name="apellido"type="text" value="{{user.last_name|default_if_none:''}}"  readonly="readonly">
+                <label>Apellido: {{user.last_name|default_if_none:''}}</label>
+              </div>
+              <div class="form-group">
+                <label>Apellido: {{user.email|default_if_none:''}}</label>
               </div>
 
               <!-- ACÁ VA EL BOTÓN DE SOLICITAR CONTACTO -->
               {% if request.user != user %}
-              {% if solicitud %}
-              <div class="form-group" style="color: blue;">
-                <strong>¡Tus datos de contacto ya han sido enviados! Pronto se comunicarán contigo.</strong>
-              </div>
-              {% else %}
-                <div >
-                  <button class="btn btn-primary" name="action" value="SolicitarContacto">
-                    <a style="color: white"  href="{% url 'solicitarcontacto' pk=publicacion.idPublicacion %}">Ponte en contacto!</a>
-                  </button>
+                  <div >
+                    <button class="btn btn-primary" name="action" value="SolicitarContacto">
+                      <a style="color: white"  href="{% url 'solicitarcontacto' pk=publicacion.idPublicacion %}">Ponte en contacto!</a>
+                    </button> 
+                  </div>
+                <br>
+              {% endif %}
+              {% if messages %}
+                  {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                      <strong class="{{ message.tags }} alert_error">{{ message }}</strong>
+                    </div>
+                  {% endfor %}
+              {% endif %}
+
+
+
+          </div>
+        </form>
+        <br>
+        <br>
+
+          <div id="divComentario" class="comments-wrapper mt-80">
+              <h3>Comentarios</h3>
+              {% if not comentarios %}
+                <div class="alert alert-success">
+                  Aún no hay comentarios en esta publicacion.
                 </div>
-              <br>
+              {% else %}
+                <ul class="media-list comment-list mt-30">
+                {% for comentario in comentarios %}
+                  <li class="media">
+                    <div class="media-body">
+                          <div class="comment-info">
+                              <div class="comment-author">
+                                  <a>{{ comentario.usuario }}</a>
+                              </div>
+                              {{ comentario.fechaComentario }}
+                          </div>
+                          <p> {{ comentario.comentario }}</p>
+                      </div>
+                  </li>
+                {% endfor %}
+                  aaaa
               {% endif %}
-              {% endif %}
+            </ul>
+          </div>
+        <form  method="POST" >
+          {% csrf_token %}
+          <h1>Deja un comentario</h1>
+          <div class="form-group">
+            <label class="sr-only">Comentario</label>
+            <li id="{{comentario.id}}">
+                <div> 
+                  <textarea class="form-control" type="text" name="comentario"  class="formControl"id="nuevoComentario" placeholder="Ingrese comentario"></textarea>  
+                  <button type="button" class="btn btn-primary" onclick="comentar()" > CrearComentar</button>
+                </div>
+            </li>
           </div>
         </form>
       </div>
     </div>
-<!-- <div class="main-section" id="publicarcomentario">
-      {% if request.user.is_authenticated %}
-      <form class="form-horizontal"  action="{% url 'verpublicacion' publicacion.idPublicacion %}" method="POST">
-        {% csrf_token%}
-        <div class="form-group">
-          <label for="contenidoComentario">Deja un comentario:</label>
-          <br>
-          {{form.ContenidoComentario}}
-        </div>
-        <div align="left">
-          <button class="btn btnprimary" type="submit" name="action" value="Publicar">Publicar Comentario
-          </button>
-        </div>
-      </form>
-    </div>
-    {% else %}
-    <p>¿Quieres hacer un comentario? <a href="/login/">Inicia Sesión</a>. o <a href="/registrar/">Registrate</a>.
-      {% endif %}
-    </div>-->
-
     <form method="POST" id='post-form' >
       {% csrf_token %}
       <input id='pub-id' hidden value="{{ publicacion.idPublicacion }}">
     </form>
-
   </body>
+
+  <script type="text/javascript">
+    function comentar(){
+        var texto = $("#nuevoComentario").val();
+        if (texto == ""){
+            alert("Por favor ingrese comentario.")  
+        } else {
+          $.ajax({
+              "method":"POST",
+              "url":"/comentariopublicacion/",
+              "data":{"texto":texto,"idPublicacion":{{publicacion.idPublicacion}},"csrfmiddlewaretoken":"{{csrf_token}}"},
+              success:function(data){
+                  try {
+                      if(JSON.parse(data) == "Error"){
+                      alert("mensaje guardado");
+
+                      }
+                  }
+                      catch(err) {
+                              $("#lista").html(data);
+                              console.log(data);
+                      }
+              }
+          });
+        }
+    }
+  </script>
+
   {% endblock%}
   {% endblock %}
 
