@@ -155,3 +155,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 django_heroku.settings(locals())
+
+
+if os.environ.get('SEARCHBOX_URL'):
+    HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+            'URL': os.environ.get('SEARCHBOX_URL'),
+            'INDEX_NAME': 'documents',
+        },
+    }
