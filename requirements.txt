@@ -2,7 +2,8 @@ Django~=2.2.4
 django-heroku
 gunicorn
 django-filter==2.3.0
-django-haystack
+#django-haystack
+git+https://github.com/django-haystack/django-haystack.git@08dd9471a0137ba87b8145cf1ec5ff9d8d498a2e
 whoosh
 django-robots
 six==1.15.0

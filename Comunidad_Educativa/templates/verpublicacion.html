@@ -29,32 +29,32 @@
           <div class="form-group">
             <label for="tipoPublicacion">Categoría</label>
             <br>
-            <p>{{publicacion.tipoPublicacion}}</p>
+            <p>{{publicacion.tipoPublicacion|default_if_none:''}}</p>
           </div>
           <div class="form-group">
             <label for="materia">Materia</label>
             <br>
-            {{publicacion.materia}}
+            {{publicacion.materia|default_if_none:''}}
           </div>
           <div class="form-group">
             <label for="ubicacionGeografica">Ubicación Geográfica</label>
             <br>
-            {{publicacion.ubicacionGeografica}}
+            {{publicacion.ubicacionGeografica|default_if_none:''}}
           </div>
           <div class="form-group">
             <label for="tituloPublicacion">Titulo de Publicación</label>
             <br>
-            {{publicacion.tituloPublicacion}}
+            {{publicacion.tituloPublicacion|default_if_none:''}}
           </div>
           <div class="form-group">
             <label for="precio">Precio por Hora ($)</label>
             <br>
-            {{publicacion.precio}}
+            {{publicacion.precio|default_if_none:''}}
           </div>
           <div class="form-group">
             <label for="Contenido" >Descripción</label>
             <br>
-            {{publicacion.Contenido}}
+            {{publicacion.Contenido|default_if_none:''}}
           </div>
 
           {% if request.user == user %}
