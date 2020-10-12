@@ -2,3 +2,5 @@ Django~=2.2.4
 django-heroku
 gunicorn
 django-filter==2.3.0
+django-haystack
+whoosh
