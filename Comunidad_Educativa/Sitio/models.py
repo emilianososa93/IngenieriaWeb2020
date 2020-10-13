@@ -52,3 +52,38 @@ class Publicacion(models.Model):
 
     def get_absolute_url(self):
         return reverse ('nuevapublicacion', args=[str(self.idPublicacion)])
+
+class SolicitudContacto(models.Model):
+    estadosCargados = (
+        ('Pendiente', 'Pendiente'),
+        ('Rechazado', 'Rechazado'),
+        ('Aceptado', 'Aceptado'),
+    )
+
+    idUsuarioSolicitante = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='request_create', on_delete=models.CASCADE)
+    idUsuarioReceptor  =models.ForeignKey(settings.AUTH_USER_MODEL, related_name='request_receive', on_delete=models.CASCADE)
+    idPublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
+    estadoSolicitud = models.CharField(max_length=50, choices=estadosCargados, null=True, blank=True)
+
+    def __str__(self):
+        return (self.idPublicacion)
+
+
+class Comentario(models.Model):
+    estadosCargados = (
+        ('Publicado', 'Publicado'),
+        ('Borrador', 'Borrador'),
+        ('Denunciado', 'Denunciado'),
+        ('Eliminado', 'Eliminado'),
+    )
+
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    idpublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE, null=True, blank=True)
+    comentario = models.CharField(max_length=1000,null=True,blank=False)
+    fechaComentario= models.DateField(default=timezone.now, null=True)
+    fechaBajaComentario = models.DateField(null=True)
+    motivoBaja = models.CharField(max_length=500)
+    estadoComentario = models.CharField(max_length=20, choices=estadosCargados, blank=True, default='Borrador')
+
+    def __str__(self):
+        return self.comentario

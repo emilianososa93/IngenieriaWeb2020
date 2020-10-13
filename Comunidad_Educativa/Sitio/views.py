@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .filters import PublicacionFilter
 from .forms import PublicacionForm
 from .models import Publicacion
+from .models import SolicitudContacto
 from Login.models import Perfil
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
