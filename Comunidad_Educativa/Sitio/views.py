@@ -181,7 +181,7 @@ def solicitarcontacto(request,pk):
 def versolicitudes(request,pk):
 	id_publicacion = pk
 	solicitudes = []
-	idUsuarioReceptor = SolicitudContacto.objects.all().filter(idPublicacion = id_publicacion)
+	idUsuarioReceptor = SolicitudContacto.objects.all().filter(idPublicacion = id_publicacion).order_by('id')
 	for sol in idUsuarioReceptor:
 		solicitudes.append(SolicitudContacto.objects.all())
 
