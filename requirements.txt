@@ -8,3 +8,4 @@ django-robots
 six==1.15.0
 elasticsearch
 certifi
+django-crispy-forms==1.9.2
