@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Login',
     'Sitio',
     'robots',
+    'crispy_forms',
 ]
 
 SITE_ID = 1

@@ -17,7 +17,8 @@ class Publicacion(models.Model):
     estadoPublicacion = (
         ('Publicado','Publicado'),
         ('Borrador','Borrador'),
-        ('Eliminado','Eliminado')
+        ('Eliminado','Eliminado'),
+        ('Denunciado','Denunciado')
     )
     Materias = (
         ('Matemáticas','Matemáticas'),
@@ -90,3 +91,16 @@ class Comentario(models.Model):
 
     def __str__(self):
         return self.comentario
+
+
+
+class Denuncia(models.Model):
+    idPublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
+    idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    motivo = models.TextField()
+
+    class Meta:
+        unique_together = ('idPublicacion', 'idUsuario')
+
+    def __str__(self):
+        return self.motivo

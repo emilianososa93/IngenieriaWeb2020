@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .filters import PublicacionFilter
-from .forms import PublicacionForm
-from .models import Publicacion
+from .forms import PublicacionForm,DenunciaForm
+from .models import Publicacion, Denuncia
 from .models import SolicitudContacto
 from Login.models import Perfil
 from django.contrib.auth.models import User
@@ -88,7 +88,14 @@ def verpublicacion(request,pk):
         solicitudexistente = SolicitudContacto.objects.all().filter(idUsuarioSolicitante = request.user).filter(idUsuarioReceptor = _usuario)
         
 
-        return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'user': _usuario, 'perfil': perfilesUsuario, 'solicitudexistente':solicitudexistente })
+        denunciaexistente = []
+        denunciaexistente = Denuncia.objects.all().filter(idUsuario = request.user).filter(idPublicacion = _idPublicacion)
+        if not denunciaexistente:
+            existedenuncia = False
+        else:
+            existedenuncia = True
+
+        return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'user': _usuario, 'perfil': perfilesUsuario, 'solicitudexistente':solicitudexistente , 'denunciado':existedenuncia})
 
 @login_required
 def editarpublicacion(request,pk):
@@ -218,7 +225,7 @@ def aceptarsolicitud(request,pk):
 
 
 def portada(request):
-	lista_publicacion = Publicacion.objects.all().filter(FechaBajaPublicacion = None).distinct().order_by('-idPublicacion')
+	lista_publicacion = Publicacion.objects.all().filter(FechaBajaPublicacion = None).filter(estadoPublicacion = 'Publicado').distinct().order_by('-idPublicacion')
 	myFilter = PublicacionFilter(request.GET, queryset=lista_publicacion)
 	lista_publicacion=  myFilter.qs
 	return render(request, "portada.html", {'lista_publicacion' : lista_publicacion,'Filter':myFilter})
@@ -257,9 +264,33 @@ def comentariopublicacion(request):
 	return render(request,"comentariopublicacion.html",{"comentarios":comentarios})
 
 
+@login_required
+def nuevadenuncia(request, pk):
+    #comment = Comment.objects.get(id=id)
+    if request.method == 'POST':
+        denuncia_form = DenunciaForm(request.POST)
+        if denuncia_form.is_valid():
+            nuevaDenuncia = denuncia_form.save(commit=False)
+            nuevaDenuncia.idPublicacion = Publicacion.objects.all().filter(idPublicacion = pk).first()
+            nuevaDenuncia.idUsuario = request.user
+            #comment.cantidad_denuncia = Denuncia.objects.filter(comment=comment).count() + 1
+            #comment.save()
+            
 
+            contador_denuncias = 0
+            denuncias_publicacion = Denuncia.objects.all().filter(idPublicacion = pk)
+            publicacion = Publicacion.objects.all().filter(idPublicacion = pk).first()
 
+            for denuncia in denuncias_publicacion:
+            	contador_denuncias += 1
+            if  contador_denuncias > 10:
+            	publicacion.estadoPublicacion = 'Denunciado'
 
+            nuevaDenuncia.save()
+            publicacion.save()
 
-
+            return HttpResponseRedirect('/verpublicacion/%s' %pk  )
+    else:
+        denuncia_form = DenunciaForm()
+    return render(request, 'denuncia.html', {'denuncia_form': denuncia_form})
 

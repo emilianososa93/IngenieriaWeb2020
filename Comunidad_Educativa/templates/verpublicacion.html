@@ -28,6 +28,17 @@
             <button class="btn btn-success">
                      <a style="color: white"  href="{% url 'versolicitudes'  pk=publicacion.idPublicacion %} ">Ver solicitudes!</a>
                   </button> 
+
+           {% else %}
+              {% if denunciado %}
+              <div>
+                <button class="btn btn-danger disabled">Ya denunciado</button>
+              </div>
+              {% else %}
+              <div>
+                <a class="btn btn-danger" href="{% url 'nuevadenuncia' pk=publicacion.idPublicacion %}" role="button">Denunciar Publicación</a>
+              </div>
+              {% endif %} 
           {% endif %}
           <h3>Datos de la Publicación</h3>
           <div class="form-group">
@@ -73,7 +84,7 @@
                 </button>  
                  
             {% endif %}
-           </div>
+           </div>          
           {% endif %}
         </div>
         <div class="col-md-1">

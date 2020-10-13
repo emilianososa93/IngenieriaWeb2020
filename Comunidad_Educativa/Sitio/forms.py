@@ -39,3 +39,13 @@ class PublicacionForm(forms.Form):
     ubicacionGeografica =  forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class' : 'validate form-control'}))
     imagen = forms.ImageField()
     materia = forms.CharField(max_length=50,widget=forms.Select(choices=Materias, attrs={'class' : 'validate form-control '}))
+
+
+class DenunciaForm(forms.ModelForm):
+    class Meta:
+        model = Denuncia
+        fields = ['motivo']
+        widgets = {
+            'motivo': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Ingrese motivo', 'rows': '4', 'cols': '50'}),
+        }
