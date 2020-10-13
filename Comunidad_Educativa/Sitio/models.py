@@ -68,6 +68,9 @@ class SolicitudContacto(models.Model):
     def __str__(self):
         return (self.idPublicacion.idPublicacion)
 
+    def get_absolute_url(self):
+        return reverse ('solicitarcontacto', args=[str(self.id)])
+
 
 class Comentario(models.Model):
     estadosCargados = (
