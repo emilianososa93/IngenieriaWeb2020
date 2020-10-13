@@ -10,7 +10,7 @@
         {% for solicitud in idUsuarioReceptor %}
 				    <div class="panel panel-success">
 				    	<div class="form-group">
-				            <label name="solicitudid" >Numero Solicitud </label> {{ solicitud.id }}
+				            <label name="solicitudid" >Numero Solicitud: </label> {{ solicitud.id }}
 				         </div>
 				    	<div class="form-group">
 				            <label>Solicitud de: </label> {{ solicitud.idUsuarioSolicitante }}
@@ -20,9 +20,13 @@
 				         </div>		
 
 		        		{% if solicitud.estadoSolicitud == 'Pendiente' %}
-					         <button class="btn btn-primary" name="action" value="RechazarPublicacion" >
+		        		 	<button class="btn btn-success" name="action" value="AceptarPublicacion" >
+			                   		<a style="color: white"  href="{% url 'aceptarsolicitud' pk=solicitud.id  %}">Aceptar Solicitud</a>
+			                </button>
+					         <button class="btn btn-danger" name="action" value="RechazarPublicacion" >
 			                   		<a style="color: white"  href="{% url 'eliminarsolicitud' pk=solicitud.id  %}">Rechazar Solicitud</a>
 			                </button>
+			                
 		               	{% endif %}	
 		                <br>		
 		                <br>	        

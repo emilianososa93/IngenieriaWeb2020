@@ -198,6 +198,24 @@ def eliminarsolicitud(request,pk):
 	
 	return HttpResponseRedirect('/verpublicacion/%s' %publicacion)
 
+def aceptarsolicitud(request,pk):
+	_idSolicitud = pk
+	solicitud = SolicitudContacto.objects.all().filter(id = _idSolicitud).first()
+	solicitud.estadoSolicitud = 'Aceptado'
+	solicitud.save()
+
+	publicacion = solicitud.idPublicacion.idPublicacion
+	solicitante = User.objects.all().filter(username = solicitud.idUsuarioSolicitante).first()
+	_usuario_publicacion = solicitud.idUsuarioReceptor
+	_usuarioPublicacion = User.objects.all().filter(username = _usuario_publicacion).first()
+	_email = _usuario_publicacion.email
+	email_subject   = 'Notificación de solicitud! :)'
+	email_body      = "Hola %s! El usuario %s que has contactado por la publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s ha aceptado tu solicitud. En breve te estara contactando!" % (solicitante.first_name, _usuarioPublicacion.username, publicacion)
+	send_mail(email_subject,email_body, 'comunidadeducativaseia@gmail.com',[_email])
+	
+	return HttpResponseRedirect('/verpublicacion/%s' %publicacion)
+
+
 
 
 

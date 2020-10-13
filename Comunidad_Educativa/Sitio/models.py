@@ -57,11 +57,12 @@ class SolicitudContacto(models.Model):
     estadosCargados = (
         ('Pendiente', 'Pendiente'),
         ('Rechazado', 'Rechazado'),
+        ('Aceptado', 'Aceptado'),
     )
 
     idUsuarioSolicitante = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='request_create', on_delete=models.CASCADE)
     idUsuarioReceptor  =models.ForeignKey(settings.AUTH_USER_MODEL, related_name='request_receive', on_delete=models.CASCADE)
-    idPublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE, null=True, blank=True)
+    idPublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
     estadoSolicitud = models.CharField(max_length=50, choices=estadosCargados, null=True, blank=True)
 
     def __str__(self):
