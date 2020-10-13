@@ -85,12 +85,9 @@ def verpublicacion(request,pk):
             usuario.append(Perfil.objects.all().last())
         solicitudexistente = []
         solicitudexistente = SolicitudContacto.objects.all().filter(idUsuarioSolicitante = request.user).filter(idUsuarioReceptor = _usuario)
-        if not solicitudexistente:
-            existesolicitud = False
-        else:
-            existesolicitud = True
+        
 
-        return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'user': _usuario, 'perfil': perfilesUsuario, 'solicitud':existesolicitud })
+        return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'user': _usuario, 'perfil': perfilesUsuario, 'solicitudexistente':solicitudexistente })
 
 @login_required
 def editarpublicacion(request,pk):
