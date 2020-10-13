@@ -173,10 +173,12 @@ def solicitarcontacto(request,pk):
 def versolicitudes(request,pk):
 	id_publicacion = pk
 	solicitudes = []
-	idUsuarioReceptor = SolicitudContacto.objects.all().filter(idPublicacion = id_publicacion)
-	for sol in idUsuarioReceptor:
-		solicitudes.append(SolicitudContacto.objects.all())
-
+	try:
+		idUsuarioReceptor = SolicitudContacto.objects.all().filter(idPublicacion = id_publicacion)
+		for sol in idUsuarioReceptor:
+			solicitudes.append(SolicitudContacto.objects.all())
+	except Exception as e:
+		print(e)
 	return render(request, 'versolicitudes.html',{'idUsuarioReceptor' : idUsuarioReceptor})
 
 
