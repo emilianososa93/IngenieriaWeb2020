@@ -187,6 +187,15 @@ def versolicitudes(request,pk):
 
 	return render(request, 'versolicitudes.html',{'idUsuarioReceptor' : idUsuarioReceptor})
 
+def versolicitudestotales(request,pk):
+	id_usuario = pk
+	solicitudes = []
+	idUsuarioReceptor = SolicitudContacto.objects.all().filter(idUsuarioReceptor = id_usuario).filter(estadoSolicitud = 'Pendiente').order_by('id')
+	for sol in idUsuarioReceptor:
+		solicitudes.append(SolicitudContacto.objects.all())
+
+	return render(request, 'versolicitudestotales.html',{'idUsuarioReceptor' : idUsuarioReceptor})
+
 
 def eliminarsolicitud(request,pk):
 	_idSolicitud = pk

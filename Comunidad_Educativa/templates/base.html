@@ -17,6 +17,7 @@
                 <li><a href="/nuevapublicacion" class="nav-link">Publicar Aviso!</a></li >
                 {% if request.user.is_authenticated %}
                     <li><a href="/mispublicaciones/{{id}}" class="nav-link">Mis publicaciones</a></li>
+                    <li><a href="{% url 'versolicitudestotales'  pk=request.user.id %} " class="nav-link">Solicitudes pendientes</a></li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
