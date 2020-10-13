@@ -10,6 +10,9 @@
         {% for solicitud in idUsuarioReceptor %}
 				    <div class="panel panel-success">
 				    	<div class="form-group">
+				            <label name="solicitudid" >Numero Solicitud: </label> {{ solicitud.id }}
+				         </div>
+				    	<div class="form-group">
 				            <label>Solicitud de: </label> {{ solicitud.idUsuarioSolicitante }}
 				         </div>		
 				         <div class="form-group">
