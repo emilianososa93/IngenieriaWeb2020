@@ -20,6 +20,7 @@ import datetime
 from django.utils import timezone
 from django.contrib import messages
 
+
 @login_required
 def nuevapublicacion(request):
 

@@ -66,7 +66,7 @@ class SolicitudContacto(models.Model):
     estadoSolicitud = models.CharField(max_length=50, choices=estadosCargados, null=True, blank=True)
 
     def __str__(self):
-        return (self.idPublicacion)
+        return (self.idPublicacion.idPublicacion)
 
 
 class Comentario(models.Model):
