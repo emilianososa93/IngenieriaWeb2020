@@ -21,7 +21,10 @@
         <div class="col-md-5 main-section">
           {% if publicacion.estadoPublicacion == 'Eliminado' %}
            <div class="alert alert-danger">
-                <strong>¡Tu publicacion ya se encuenta Eliminada!</strong>
+                <strong>¡Tu publicacion ya se encuenta Eliminada!</strong> 
+                  <button class="btn btn-success">
+                     <a style="color: white"  href="{% url 'activarpublicacion'  pk=publicacion.idPublicacion %} ">Reactivar Publicacion</a>
+                  </button> 
           </div>
           {% endif %}
           {% if request.user == user %}

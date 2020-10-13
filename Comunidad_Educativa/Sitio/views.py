@@ -225,7 +225,7 @@ def aceptarsolicitud(request,pk):
 
 
 def portada(request):
-	lista_publicacion = Publicacion.objects.all().filter(FechaBajaPublicacion = None).filter(estadoPublicacion = 'Publicado').distinct().order_by('-idPublicacion')
+	lista_publicacion = Publicacion.objects.all().filter(estadoPublicacion = 'Publicado').distinct().order_by('-idPublicacion')
 	myFilter = PublicacionFilter(request.GET, queryset=lista_publicacion)
 	lista_publicacion=  myFilter.qs
 	return render(request, "portada.html", {'lista_publicacion' : lista_publicacion,'Filter':myFilter})
@@ -241,6 +241,16 @@ def eliminarpublicacion(request,pk):
 
 	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
+
+def activarpublicacion(request,pk):
+	_idPublicacion = pk
+	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
+	fechabaja= timezone.now()
+	publicacion.FechaModificacionPublicacion = fechabaja
+	publicacion.estadoPublicacion = 'Publicado'
+	publicacion.save()
+
+	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
 
 def comentariopublicacion(request):
