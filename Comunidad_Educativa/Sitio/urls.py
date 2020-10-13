@@ -19,5 +19,7 @@ urlpatterns = [
 	url(r'^eliminarpublicacion/(?P<pk>[0-9]+)/$', views.eliminarpublicacion, name='eliminarpublicacion'),
 	url(r'^search/$', search_view_factory(view_class=SearchView, form_class=HighlightedSearchForm), name='search'),
     url(r'^robots\.txt/$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
-    url(r'^comentariopublicacion/$', views.comentariopublicacion, name ='comentariopublicacion')
+    url(r'^comentariopublicacion/$', views.comentariopublicacion, name ='comentariopublicacion'),
+    url(r'^verpublicacion/(?P<pk>[0-9]+)/versolicitudes/$', views.versolicitudes, name ='versolicitudes'),
+    url(r'^eliminarsolicitud/(?P<pk>[0-9]+)/$', views.eliminarsolicitud, name='eliminarsolicitud'),
 ]

@@ -25,6 +25,11 @@
                 <strong>¡Tu publicacion ya se encuenta Eliminada!</strong>
           </div>
           {% endif %}
+          {% if request.user == user %}
+            <button class="btn btn-success">
+                     <a style="color: white"  href="/verpublicacion/{{publicacion.idPublicacion}}/versolicitudes">Ver solicitudes!</a>
+                  </button> 
+          {% endif %}
           <h3>Datos de la Publicación</h3>
           <div class="form-group">
             <label for="tipoPublicacion">Categoría</label>
@@ -60,20 +65,17 @@
           {% if request.user == user %}
            <div>
             {% if publicacion.estadoPublicacion != 'Eliminado' %}
-               <button class="btn btn-primary" name="action" value="EditarPublicacion">
+                <button class="btn btn-primary" name="action" value="EditarPublicacion">
                  <a style="color: white" href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
                  </a>
-               </button>
-                 <button class="btn btn-primary" name="action" value="EliminarPublicacion" id= "eliminar">
+                </button>
+                <button class="btn btn-primary" name="action" value="EliminarPublicacion" id= "eliminar">
                    <a style="color: white"  href="{% url 'eliminarpublicacion' pk=publicacion.idPublicacion %}">Eliminar Publicación</a>
-                 </button>  
+                </button>  
+                 
             {% endif %}
            </div>
           {% endif %}
-
-          
-
-
         </div>
         <div class="col-md-1">
         </div>

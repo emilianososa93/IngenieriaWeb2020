@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from .filters import PublicacionFilter
 from .forms import PublicacionForm
 from .models import Publicacion
-from .models import Comentario
 from .models import SolicitudContacto
 from Login.models import Perfil
 from django.contrib.auth.models import User
@@ -68,6 +67,7 @@ def mispublicaciones(request):
 	_usuario = request.user.id
 	mispublicaciones = Publicacion.objects.all().filter(idUsuarioPublicacion = _usuario).distinct().order_by('-idPublicacion')
 	return render(request, 'mispublicaciones.html', {'mispublicaciones': mispublicaciones})
+
 
 @login_required
 def verpublicacion(request,pk):
@@ -150,22 +150,64 @@ def solicitarcontacto(request,pk):
 
     email_subject   = 'Alguien quiere ponerse en contacto contigo! :)'
     #corregir link y contenido
-    email_body      = "Hola %s! El usuario %s, %s quiere ponerse en contacto contigo por tu publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s. \nPuedes contactarlo al Email: %s o al Telefono: '%s' ." % (_usuario.first_name, _usuarioPublicacion.first_name, _usuarioPublicacion.last_name, pk, solicitante.email, perfil_solicitante.telefonoNumero)
+    email_body      = "Hola %s! El usuario %s, %s quiere ponerse en contacto contigo por tu publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s. \nPuedes contactarlo al Email: %s o al Telefono: '%s' . " % (_usuario.first_name, _usuarioPublicacion.first_name, _usuarioPublicacion.last_name, pk, solicitante.email, perfil_solicitante.telefonoNumero)
 
     send_mail(email_subject,email_body, 'comunidadeducativaseia@gmail.com',[_email])
 
 
     model = SolicitudContacto
+    estado = 'Pendiente'
 
     solicitud = SolicitudContacto(
         idUsuarioSolicitante = request.user,
-        idUsuarioReceptor = _usuario
+        idUsuarioReceptor = _usuario,
+        idPublicacion = publicacion,
+        estadoSolicitud = estado
     )
 
     solicitud.save()
     messages.error(request, "Se ha enviado una solicitud de contacto al creador de la publicación con sus datos")
 
     return HttpResponseRedirect('/verpublicacion/%s' %pk  )
+
+
+
+
+def versolicitudes(request,pk):
+	id_publicacion = pk
+	solicitudes = []
+	receptor = request.user.id		
+	idUsuarioReceptor = SolicitudContacto.objects.all().filter(idPublicacion = id_publicacion).order_by('-id')	
+	for sol in idUsuarioReceptor:
+		solicitudes.append(SolicitudContacto.objects.all())
+
+	return render(request, 'versolicitudes.html',{'idUsuarioReceptor' : idUsuarioReceptor})
+
+
+def eliminarsolicitud(request,pk):
+	_idSolicitud = pk
+	solicitud = SolicitudContacto.objects.all().filter(id = _idSolicitud).first()
+	solicitud.estadoSolicitud = 'Rechazado'
+	solicitud.save()
+
+	publicacion = solicitud.idPublicacion.idPublicacion
+	solicitante = User.objects.all().filter(username = solicitud.idUsuarioSolicitante).first()
+	_usuario_publicacion = solicitud.idUsuarioReceptor
+	_usuarioPublicacion = User.objects.all().filter(username = _usuario_publicacion).first()
+	_email = _usuario_publicacion.email
+	email_subject   = 'Notificación de solicitud! :)'
+	email_body      = "Hola %s! El usuario %s que has contactado por la publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s ha rechazado tu solicitud. " % (solicitante.first_name, _usuarioPublicacion.username, publicacion)
+	send_mail(email_subject,email_body, 'comunidadeducativaseia@gmail.com',[_email])
+	
+	return HttpResponseRedirect('/verpublicacion/%s' %publicacion)
+
+
+
+
+
+
+
+
 
 def portada(request):
 	lista_publicacion = Publicacion.objects.all().filter(FechaBajaPublicacion = None).distinct().order_by('-idPublicacion')

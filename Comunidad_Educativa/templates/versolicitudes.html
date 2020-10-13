@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+<body>
+	<div>
+		{% if request.user.is_authenticated %}
+            <h1>Hola, {{request.user.username}} !! Estas son tus solicitudes pendientes</h1>
+        {% endif %}
+        <br>
+        {% for solicitud in idUsuarioReceptor %}
+				    <div class="panel panel-success">
+				    	<div class="form-group">
+				            <label name="solicitudid" >Numero Solicitud </label> {{ solicitud.id }}
+				         </div>
+				    	<div class="form-group">
+				            <label>Solicitud de: </label> {{ solicitud.idUsuarioSolicitante }}
+				         </div>		
+				         <div class="form-group">
+				            <label>Estado Publicacion: </label>{{ solicitud.estadoSolicitud }}
+				         </div>		
+
+		        		{% if solicitud.estadoSolicitud == 'Pendiente' %}
+					         <button class="btn btn-primary" name="action" value="RechazarPublicacion" >
+			                   		<a style="color: white"  href="{% url 'eliminarsolicitud' pk=solicitud.id  %}">Rechazar Solicitud</a>
+			                </button>
+		               	{% endif %}	
+		                <br>		
+		                <br>	        
+			        </div>
+			        <br>
+			    
+		    {% endfor %}
+
+
+
+	</div>
+</body>
+
+{% endblock %}
