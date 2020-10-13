@@ -37,8 +37,7 @@
 			              <input name="email"  type="text" value="{{user.email|default_if_none:''}}" required="" readonly="readonly" style="opacity: 0.5">
 			            </div>
 			        </div>
-			        {% for perfil in usuario%}
-			        	{% if perfil.index == usuario[-1] %}
+			        {% for perfil in usuario|slice:":1" %}
 				            <div class="form-group">
 				              <label>Dirección</label>
 				              <input name="direccion"type="text" value="{{perfil.direccion|default_if_none:''}}" >
@@ -55,7 +54,6 @@
 					          <label>Telefono:</label>
 					          <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero|default_if_none:''}}">
 					        </div>
-				       	{% endif %}
 					{% endfor %}
 			        <button class="btn btn-primary" type="submit" name="action" value="Guardar">Guardar</button>
 			    </form>
