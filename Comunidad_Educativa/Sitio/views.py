@@ -297,7 +297,7 @@ def comentariopublicacion(request,pk):
 	publicacion =Publicacion.objects.all().filter(idPublicacion = id_publicacion).first()
 	comentariocreado = Comentario()
 	comentariocreado.usuario = request.user
-	comentariocreado.comentario = request.POST['contenidocomentario']
+	comentariocreado.comentario = 'Comentario111'
 	comentariocreado.idpublicacion = publicacion
 	comentariocreado.estadoComentario = 'Publicado'
 	comentariocreado.save()	
