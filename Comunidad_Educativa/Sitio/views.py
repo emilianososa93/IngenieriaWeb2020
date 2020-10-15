@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .filters import PublicacionFilter
-from .forms import PublicacionForm,DenunciaForm
-from .models import Publicacion, Denuncia
+from .forms import PublicacionForm,DenunciaForm,ComentarioForm
+from .models import Publicacion, Denuncia,Comentario
 from .models import SolicitudContacto
 from Login.models import Perfil
 from django.contrib.auth.models import User
@@ -73,6 +73,7 @@ def mispublicaciones(request):
 @login_required
 def verpublicacion(request,pk):
     form = PublicacionForm(request.POST)
+    form1 = ComentarioForm(request.POST)
     _idPublicacion = pk
     publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
 
@@ -90,12 +91,16 @@ def verpublicacion(request,pk):
 
         denunciaexistente = []
         denunciaexistente = Denuncia.objects.all().filter(idUsuario = request.user).filter(idPublicacion = _idPublicacion)
+
+        estado_comentario = 'Publicado'
+        comentarios = Comentario.objects.all().filter(idpublicacion = publicacion).filter(estadoComentario = estado_comentario )
+
         if not denunciaexistente:
             existedenuncia = False
         else:
             existedenuncia = True
 
-        return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'user': _usuario, 'perfil': perfilesUsuario, 'solicitudexistente':solicitudexistente , 'denunciado':existedenuncia})
+        return render(request, 'verpublicacion.html',{'publicacion': publicacion,'form': form,'form1': form1,'user': _usuario, 'perfil': perfilesUsuario, 'solicitudexistente':solicitudexistente , 'denunciado':existedenuncia,'comentarios':comentarios})
 
 @login_required
 def editarpublicacion(request,pk):
@@ -274,6 +279,7 @@ def eliminarpublicacion(request,pk):
 	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
 
+
 def activarpublicacion(request,pk):
 	_idPublicacion = pk
 	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
@@ -285,25 +291,29 @@ def activarpublicacion(request,pk):
 	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
 
-def comentariopublicacion(request):
-	publicacion = request.POST.get("idPublicacion")
-	comentario = Comentario.objects.filter(idpublicacion = publicacion)
+def comentariopublicacion(request,pk):
+	id_publicacion = pk
+	estado = 'Publicado'
+	publicacion =Publicacion.objects.all().filter(idPublicacion = id_publicacion).first()
+	comentariocreado = Comentario()
+	comentariocreado.usuario = request.user
+	comentariocreado.comentario = request.POST['contenidocomentario']
+	comentariocreado.idpublicacion = publicacion
+	comentariocreado.estadoComentario = 'Publicado'
+	comentariocreado.save()	
 
-	if request.method == 'POST' :
-		_comentario = request.POST.get("comentario")
-		comentario = Comentario.objects.filter(idpublicacion = publicacion)
-		publicacion_ = Publicacion.objects.get(pk=publicacion)
-		comentariocreado = Comentario()
-		comentariocreado.usuario = request.user
-		comentariocreado.comentario = _comentario
-		comentariocreado.fechaComentario = timezone.now()
-		comentariocreado.idpublicacion = publicacion_
-		comentariocreado.estadoComentario = 'Publicado'
-		comentariocreado.save()
+	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
-		comentarios = Comentario.objects.filter(idpublicacion = publicacion, fechaBajaComentario=None).order_by("-fechaComentario")
 
-	return render(request,"comentariopublicacion.html",{"comentarios":comentarios})
+def eliminarcomentario(request,pk):
+	_idPublicacion = pk
+	estado ='Eliminado'
+	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion)
+	comentario = Comentario.objects.all().filter(idpublicacion = publicacion)
+	comentario.estadoComentario = estado
+	comentario.save()
+
+	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
 
 @login_required

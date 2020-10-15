@@ -128,9 +128,19 @@
 
           </div>
         </form>
-        <br>
-        <br>
-
+        
+        <form  method="POST" >
+          {% csrf_token %}
+          <h3>Deja un comentario</h3>
+          <div class="form-group">
+            <label class="sr-only">Comentario</label>
+                <div> 
+                  {{form1.contenidocomentario}}
+                  <button class="btn btn-primary" name="action" value="comentariopublicacion">
+                      <a style="color: white"  href="{% url 'comentariopublicacion' pk=publicacion.idPublicacion %}">Crear Comentario</a>
+                    </button> 
+                </div>
+          </div>
           <div id="divComentario" class="comments-wrapper mt-80">
               <h3>Comentarios</h3>
               {% if not comentarios %}
@@ -138,35 +148,21 @@
                   Aún no hay comentarios en esta publicacion.
                 </div>
               {% else %}
-                <ul class="media-list comment-list mt-30">
-                {% for comentario in comentarios %}
-                  <li class="media">
-                    <div class="media-body">
-                          <div class="comment-info">
-                              <div class="comment-author">
-                                  <a>{{ comentario.usuario }}</a>
-                              </div>
-                              {{ comentario.fechaComentario }}
-                          </div>
-                          <p> {{ comentario.comentario }}</p>
-                      </div>
-                  </li>
+                {% for coment in comentarios %}
+                  {%if coment.estadoComentario == 'Publicado' %}
+                      <ul>                        
+                        <label>Usuario: </label> {{ coment.usuario }}
+                        <p> {{ coment.comentario }}</p>
+                        {%if request.user == coment.usuario %}
+                          <button class="btn btn-primary" name="action" value="eliminarcomentario">
+                          <a style="color: white"  href="{% url 'eliminarcomentario' pk=publicacion.idPublicacion %}">Eliminar Comentario</a>
+                          </button> 
+                        {% endif %}
+                        <hr size=”5px” width= “50%” align=”center” color=”red”/>
+                      </ul>
+                  {% endif %}
                 {% endfor %}
-                  aaaa
               {% endif %}
-            </ul>
-          </div>
-        <form  method="POST" >
-          {% csrf_token %}
-          <h1>Deja un comentario</h1>
-          <div class="form-group">
-            <label class="sr-only">Comentario</label>
-            <li id="{{comentario.id}}">
-                <div> 
-                  <textarea class="form-control" type="text" name="comentario"  class="formControl"id="nuevoComentario" placeholder="Ingrese comentario"></textarea>  
-                  <button type="button" class="btn btn-primary" onclick="comentar()" > CrearComentar</button>
-                </div>
-            </li>
           </div>
         </form>
       </div>
@@ -176,33 +172,6 @@
       <input id='pub-id' hidden value="{{ publicacion.idPublicacion }}">
     </form>
   </body>
-
-  <script type="text/javascript">
-    function comentar(){
-        var texto = $("#nuevoComentario").val();
-        if (texto == ""){
-            alert("Por favor ingrese comentario.")  
-        } else {
-          $.ajax({
-              "method":"POST",
-              "url":"/comentariopublicacion/",
-              "data":{"texto":texto,"idPublicacion":{{publicacion.idPublicacion}},"csrfmiddlewaretoken":"{{csrf_token}}"},
-              success:function(data){
-                  try {
-                      if(JSON.parse(data) == "Error"){
-                      alert("mensaje guardado");
-
-                      }
-                  }
-                      catch(err) {
-                              $("#lista").html(data);
-                              console.log(data);
-                      }
-              }
-          });
-        }
-    }
-  </script>
 
   {% endblock%}
   {% endblock %}

@@ -76,21 +76,17 @@ class SolicitudContacto(models.Model):
 class Comentario(models.Model):
     estadosCargados = (
         ('Publicado', 'Publicado'),
-        ('Borrador', 'Borrador'),
         ('Denunciado', 'Denunciado'),
         ('Eliminado', 'Eliminado'),
     )
 
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
-    idpublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE, null=True, blank=True)
-    comentario = models.CharField(max_length=1000,null=True,blank=False)
-    fechaComentario= models.DateField(default=timezone.now, null=True)
-    fechaBajaComentario = models.DateField(null=True)
-    motivoBaja = models.CharField(max_length=500)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    idpublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
+    comentario = models.TextField(max_length=1000,null=True,blank=False)
     estadoComentario = models.CharField(max_length=20, choices=estadosCargados, blank=True, default='Borrador')
 
     def __str__(self):
-        return self.comentario
+        return str(self.comentario)
 
 
 

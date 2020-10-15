@@ -49,3 +49,7 @@ class DenunciaForm(forms.ModelForm):
             'motivo': forms.Textarea(
                 attrs={'class': 'form-control', 'placeholder': 'Ingrese motivo', 'rows': '4', 'cols': '50'}),
         }
+
+
+class ComentarioForm(forms.Form):
+    contenidocomentario = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={"rows":10, "cols":20,'class' : 'validate form-control','placeholder':'Ingrese comentario'}))
