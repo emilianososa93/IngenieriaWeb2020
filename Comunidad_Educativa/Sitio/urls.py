@@ -24,7 +24,8 @@ urlpatterns = [
     url(r'^eliminarsolicitud/(?P<pk>[0-9]+)/$', views.eliminarsolicitud, name='eliminarsolicitud'),
     url(r'^aceptarsolicitud/(?P<pk>[0-9]+)/$', views.aceptarsolicitud, name='aceptarsolicitud'),
     url(r'^nuevadenuncia/(?P<pk>[0-9]+)/$', views.nuevadenuncia, name='nuevadenuncia'),
+    url(r'^rechazardenuncia/(?P<pk>[0-9]+)/$', views.rechazardenuncia, name='rechazardenuncia'),
     url(r'^activarpublicacion/(?P<pk>[0-9]+)/$', views.activarpublicacion, name='activarpublicacion'),
     url(r'^versolicitudestotales/(?P<pk>[0-9]+)/$', views.versolicitudestotales, name='versolicitudestotales'),
-    
+    url('verdenuncias/', views.verdenuncias, name='verdenuncias'),    
 ]

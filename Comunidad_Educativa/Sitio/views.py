@@ -197,6 +197,23 @@ def versolicitudestotales(request,pk):
 	return render(request, 'versolicitudestotales.html',{'idUsuarioReceptor' : idUsuarioReceptor})
 
 
+def verdenuncias(request,):
+	estado = 'Denunciado'
+	denuncias = Denuncia.objects.all().filter(estadoDenuncia = estado)
+	return render(request, 'verdenuncias.html', {'denuncias' : denuncias})
+
+
+def rechazardenuncia(request,pk):
+	_idPublicacion = pk
+	denuncia = Denuncia.objects.all().filter(idPublicacion = _idPublicacion).first()
+	denuncia.estadoDenuncia = 'Eliminado'
+
+	denuncia.save()
+
+	return HttpResponseRedirect('/verdenuncias/')
+
+
+
 def eliminarsolicitud(request,pk):
 	_idSolicitud = pk
 	solicitud = SolicitudContacto.objects.all().filter(id = _idSolicitud).first()
@@ -246,6 +263,12 @@ def eliminarpublicacion(request,pk):
 	fechabaja= timezone.now()
 	publicacion.FechaBajaPublicacion = fechabaja
 	publicacion.estadoPublicacion = 'Eliminado'
+
+
+	denuncia = Denuncia.objects.all().filter(idPublicacion = _idPublicacion).first()
+	denuncia.estadoDenuncia = 'Eliminado'
+
+	denuncia.save()
 	publicacion.save()
 
 	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
@@ -292,21 +315,11 @@ def nuevadenuncia(request, pk):
             nuevaDenuncia = denuncia_form.save(commit=False)
             nuevaDenuncia.idPublicacion = Publicacion.objects.all().filter(idPublicacion = pk).first()
             nuevaDenuncia.idUsuario = request.user
+            nuevaDenuncia.estadoDenuncia = 'Denunciado'
             #comment.cantidad_denuncia = Denuncia.objects.filter(comment=comment).count() + 1
             #comment.save()
-            
-
-            contador_denuncias = 0
-            denuncias_publicacion = Denuncia.objects.all().filter(idPublicacion = pk)
-            publicacion = Publicacion.objects.all().filter(idPublicacion = pk).first()
-
-            for denuncia in denuncias_publicacion:
-            	contador_denuncias += 1
-            if  contador_denuncias > 10:
-            	publicacion.estadoPublicacion = 'Denunciado'
 
             nuevaDenuncia.save()
-            publicacion.save()
 
             return HttpResponseRedirect('/verpublicacion/%s' %pk  )
     else:

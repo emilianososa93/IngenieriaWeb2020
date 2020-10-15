@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+
+<body>
+	<div>
+		{% if request.user.is_authenticated %}
+            <h2>Hola, {{request.user.username}} !! Estas son todas la denuncias que esperan tu respuesta.</h2>
+        {% endif %}
+        <br>
+	</div>
+			{% for denuncia in denuncias %}
+				    <div class="panel panel-success">
+				    	<br>
+				    	<div class="form-group">
+				            <label>Publicación:  &nbsp </label><a  href="{% url 'verpublicacion' pk=denuncia.idPublicacion.idPublicacion %}">{{ denuncia.idPublicacion }}</a>
+				         </div>	
+				    	<div class="form-group">
+				            <label>Solicitud del usuario: </label> {{ denuncia.idUsuario }}
+				         </div>			
+				         <div class="form-group">
+				            <label>Motivo denuncia: &nbsp </label>{{ denuncia.motivo }}
+				         </div>	
+				         {% if denuncia.estadoDenuncia == 'Denunciado' %}
+				         	<button class="btn btn-success" name="action" value="RechazarDenuncia" id= "eliminar">
+				                   <a style="color: white"  href="{% url 'rechazardenuncia' pk=denuncia.idPublicacion.idPublicacion %}">Rechazar Denuncia</a>
+				             </button> 
+					         <button class="btn btn-danger" name="action" value="EliminarPublicacion" id= "eliminar">
+				                   <a style="color: white"  href="{% url 'eliminarpublicacion' pk=denuncia.idPublicacion.idPublicacion %}">Eliminar Publicación</a>
+				             </button>
+		               	{% endif %}		
+		                <br>	
+		                <br>        
+			        </div>
+			        <br>
+		    {% endfor %}
+</body>
+
+
+
+{% endblock %}

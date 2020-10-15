@@ -95,9 +95,15 @@ class Comentario(models.Model):
 
 
 class Denuncia(models.Model):
+    estadosCargados = (
+        ('Denunciado', 'Denunciado'),
+        ('Eliminado', 'Eliminado'),
+    )
+    
     idPublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
     idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)
     motivo = models.TextField()
+    estadoDenuncia = models.CharField(choices=estadosCargados, null=True, blank=True,max_length = 50)
 
     class Meta:
         unique_together = ('idPublicacion', 'idUsuario')
