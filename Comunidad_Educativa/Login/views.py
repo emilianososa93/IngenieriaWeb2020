@@ -92,6 +92,8 @@ def nosotros(request):
 
 
 def editarusuario(request):
+	user = get_object_or_404(User, id = request.user.id)
+	perfil = Perfil.objects.all().filter(usuario = user).last()
 	if request.method == 'POST':
 		usuario = request.POST['nombreUsuario']
 		nombre = request.POST['nombre']
@@ -101,26 +103,24 @@ def editarusuario(request):
 		telefonoNumero = request.POST['telefonoNumero']
 		direccion = request.POST['direccion']
 		provincia = request.POST['provincia']
-
-		user = get_object_or_404(User, id = request.user.id)
-		perfil = Perfil(
-				usuario = user,
-				ciudad = localidad,
-				telefonoNumero = telefonoNumero,
-				direccion = direccion,
-				provincia = provincia)
-
+		pais = request.POST['pais']
+		fechaNacimiento = request.POST['fechaNacimiento']
 		user.username = usuario
 		user.first_name = nombre
 		user.last_name = apellido
 		user.email = email
 		user.username = usuario
+		perfil.direccion = direccion
+		perfil.ciudad = localidad
+		perfil.provincia = provincia
+		perfil.telefonoNumero = telefonoNumero
+		perfil.pais = pais
+		perfil.fechaNacimiento = fechaNacimiento
+
 		user.save()
 		perfil.save()
-		
-	usuario  = []
-	_usuario = request.user.id
-	perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
-	for _perfil in perfilesUsuario:
-		usuario.append(Perfil.objects.all().distinct().last())
-	return render(request, "editarusuario.html", {'usuario': usuario})
+		return HttpResponseRedirect('/editarusuario/')
+	else:
+		perfil = Perfil.objects.all().filter(usuario = user)
+
+	return render(request, "editarusuario.html", {'perfil':perfil})

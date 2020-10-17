@@ -37,22 +37,30 @@
 			              <input name="email"  type="text" value="{{user.email|default_if_none:''}}" required="" readonly="readonly" style="opacity: 0.5">
 			            </div>
 			        </div>
-			        {% for perfil in usuario|slice:":1" %}
+			        {% for perfil1 in perfil%}
 				            <div class="form-group">
 				              <label>Dirección</label>
-				              <input name="direccion"type="text" value="{{perfil.direccion|default_if_none:''}}" >
+				              <input name="direccion"type="text" value="{{perfil1.direccion|default_if_none:''}}" >
 				            </div>
 				            <div class="form-group">
 				            	<label>Localidad</label>
-				                <input name="localidad" type="text" value="{{perfil.ciudad|default_if_none:''}}" >
+				                <input name="localidad" type="text" value="{{perfil1.ciudad|default_if_none:''}}" >
 				            </div>
 				            <div class="form-group">
 				            	<label>Provincia</label>
-				                <input name="provincia" type="text" value="{{perfil.provincia|default_if_none:''}}" >
+				                <input name="provincia" type="text" value="{{perfil1.provincia|default_if_none:''}}" >
+				            </div>
+				            <div class="form-group">
+				            	<label>Pais</label>
+				                <input name="pais" type="text" value="{{perfil1.pais|default_if_none:''}}" >
 				            </div>
 				            <div class="form-group">
 					          <label>Telefono:</label>
-					          <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero|default_if_none:''}}">
+					          <input name="telefonoNumero"  type="text" value="{{perfil1.telefonoNumero|default_if_none:''}}">
+					        </div>
+					        <div class="form-group">
+					          <label>Fecha Nacimiento:</label>{{perfil1.fechaNacimiento|default_if_none:''}}
+					          <input name="fechaNacimiento"  type="date" value="{{perfil1.fechaNacimiento|default_if_none:''}}">
 					        </div>
 					{% endfor %}
 			        <button class="btn btn-primary" type="submit" name="action" value="Guardar">Guardar</button>
