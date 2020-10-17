@@ -14,7 +14,6 @@
         <h2>Tu cuenta, {{request.user.first_name}} !!</h2>
     {% endif %}
     <div class="modal-dialog text-center">
-            <div class="modal-content">
             	<h3>Datos de usuario</h3>
             	<br>	
             	<form  action="{% url 'editarusuario' %}" method="POST">
@@ -70,7 +69,6 @@
 				      {% endfor %}
 					{% endif %}
 			    </form>
-		    </div>
 	</div>
 </body>
 
