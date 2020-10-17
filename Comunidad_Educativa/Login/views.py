@@ -117,6 +117,7 @@ def editarusuario(request):
 
 		user.save()
 		perfil.save()
+		messages.error(request, "El perfil de modifico con exito!")
 		return HttpResponseRedirect('/editarusuario/')
 	else:
 		perfil = Perfil.objects.all().filter(usuario = user)
