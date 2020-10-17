@@ -58,10 +58,6 @@
 					          <label>Telefono:</label>
 					          <input name="telefonoNumero"  type="text" value="{{perfil1.telefonoNumero|default_if_none:''}}">
 					        </div>
-					        <div class="form-group">
-					          <label>Fecha Nacimiento:</label>{{perfil1.fechaNacimiento|default_if_none:''}}
-					          <input name="fechaNacimiento"  type="date" value="{{perfil1.fechaNacimiento|default_if_none:''}}">
-					        </div>
 					{% endfor %}
 			        <button class="btn btn-primary" type="submit" name="action" value="Guardar">Guardar</button>
 			    </form>

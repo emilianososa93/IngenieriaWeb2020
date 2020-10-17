@@ -104,7 +104,6 @@ def editarusuario(request):
 		direccion = request.POST['direccion']
 		provincia = request.POST['provincia']
 		pais = request.POST['pais']
-		fechaNacimiento = request.POST['fechaNacimiento']
 		user.username = usuario
 		user.first_name = nombre
 		user.last_name = apellido
@@ -115,7 +114,6 @@ def editarusuario(request):
 		perfil.provincia = provincia
 		perfil.telefonoNumero = telefonoNumero
 		perfil.pais = pais
-		perfil.fechaNacimiento = fechaNacimiento
 
 		user.save()
 		perfil.save()
