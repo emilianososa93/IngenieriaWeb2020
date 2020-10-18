@@ -103,7 +103,7 @@
                 <label>Apellido: </label> {{user.last_name|default_if_none:''}}
               </div>
               <div class="form-group">
-                <label>Apellido: </label> {{user.email|default_if_none:''}}
+                <label>Correo: </label> {{user.email|default_if_none:''}}
               </div>
               <!-- ACÁ VA EL BOTÓN DE SOLICITAR CONTACTO -->
               {% if request.user != user %}
