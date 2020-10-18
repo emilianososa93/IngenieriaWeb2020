@@ -294,10 +294,11 @@ def activarpublicacion(request,pk):
 def comentariopublicacion(request,pk):
 	id_publicacion = pk
 	estado = 'Publicado'
+	form = PublicacionForm(request.POST)
 	publicacion =Publicacion.objects.all().filter(idPublicacion = id_publicacion).first()
 	comentariocreado = Comentario()
 	comentariocreado.usuario = request.user
-	comentariocreado.comentario = 'Comentario111'
+	comentariocreado.comentario = request.POST["contenidocomentario"]
 	comentariocreado.idpublicacion = publicacion
 	comentariocreado.estadoComentario = 'Publicado'
 	comentariocreado.save()	
@@ -308,8 +309,8 @@ def comentariopublicacion(request,pk):
 def eliminarcomentario(request,pk):
 	_idPublicacion = pk
 	estado ='Eliminado'
-	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion)
-	comentario = Comentario.objects.all().filter(idpublicacion = publicacion)
+	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
+	comentario = Comentario.objects.all().filter(idpublicacion = publicacion).first()
 	comentario.estadoComentario = estado
 	comentario.save()
 

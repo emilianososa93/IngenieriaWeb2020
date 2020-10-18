@@ -95,18 +95,16 @@
 
         <div class="col-md-5" >
           <div>
-            <div class="col-md-5 modal-content">
-              <h3><b>Información de Contacto</b></h3>
+              <h3 align="center"><b>Información de Contacto</b></h3>
               <div class="form-group">
-                <label>Nombre: {{user.first_name|default_if_none:''}}</label>
+                <label>Nombre: </label> {{user.first_name|default_if_none:''}}
               </div>
               <div class="form-group">
-                <label>Apellido: {{user.last_name|default_if_none:''}}</label>
+                <label>Apellido: </label> {{user.last_name|default_if_none:''}}
               </div>
               <div class="form-group">
-                <label>Apellido: {{user.email|default_if_none:''}}</label>
+                <label>Apellido: </label> {{user.email|default_if_none:''}}
               </div>
-
               <!-- ACÁ VA EL BOTÓN DE SOLICITAR CONTACTO -->
               {% if request.user != user %}
                   <div >
@@ -129,16 +127,16 @@
           </div>
         </form>
         
-        <form  method="POST" >
+        <form class="form-horizontal" action="{% url 'comentariopublicacion' pk=publicacion.idPublicacion %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
-          <h3>Deja un comentario</h3>
+          <h3 align="center">Deja un comentario</h3>
           <div class="form-group">
-            <label class="sr-only">Comentario</label>
+            <label for = "contenidocomentario"  class="sr-only">Comentario</label>
                 <div> 
-                  {{form1.contenidocomentario}}
-                  <button class="btn btn-primary" name="action" value="comentariopublicacion">
-                      <a style="color: white"  href="{% url 'comentariopublicacion' pk=publicacion.idPublicacion %}">Crear Comentario</a>
-                    </button> 
+                  <div class="form-group">
+                     {{form1.contenidocomentario}}
+                  </div>
+                  <button class="btn btn-primary" type = "submit" name="action" value="comentariopublicacion">Crear Comentario</button>
                 </div>
           </div>
           <div id="divComentario" class="comments-wrapper mt-80">
