@@ -56,21 +56,16 @@
 
     <div class="col-md-5" >
       <div>
-        <div class="col-md-5 modal-content" id="cuadro2">
           <h3><b>Información de Contacto</b></h3>
           <div class="form-group user-section">
-            <label>Nombre:</label>
-            <input name="nombre"  type="text" value="{{user.first_name|default_if_none:''}}"  readonly="readonly">
+            <label>Nombre:</label>  {{user.first_name|default_if_none:''}}
           </div>
           <div class="form-group user-section">
-            <label>Apellido:</label>
-            <input name="apellido"type="text" value="{{user.last_name|default_if_none:''}}"  readonly="readonly">
+            <label>Apellido:</label>  {{user.last_name|default_if_none:''}}
           </div>
           <div class="form-group user-section">
-            <label>Correo:</label>
-            <input name="correo"  type="text" value="{{user.email|default_if_none:''}}"  readonly="readonly">
+            <label>Correo:</label>  {{user.email|default_if_none:''}}
           </div>
-        </div>
       </div>
       <div>
 

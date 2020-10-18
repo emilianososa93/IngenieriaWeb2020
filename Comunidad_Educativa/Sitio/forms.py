@@ -33,7 +33,7 @@ class PublicacionForm(forms.Form):
     estadoPublicacion = forms.CharField(max_length=50, widget=forms.Select(choices=estadoPubli, attrs={'class' : 'validate form-control '}))
     tituloPublicacion = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class' : 'validate form-control'}))
     precio = forms.CharField(max_length=1000, widget=forms.TextInput(attrs={'class' : 'validate form-control'}))
-    Contenido = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={"rows":10, "cols":20,'class' : 'validate form-control'}))
+    Contenido = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={"rows":5, "cols":20,'class' : 'validate form-control'}))
     localidad = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'validate form-control'}))
     provincia = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'validate form-control'}))
     ubicacionGeografica =  forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class' : 'validate form-control'}))
