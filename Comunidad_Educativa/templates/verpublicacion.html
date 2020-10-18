@@ -148,8 +148,7 @@
               {% else %}
                 {% for coment in comentarios %}
                   {%if coment.estadoComentario == 'Publicado' %}
-                      <ul>      
-                        <label>Usuario: </label> {{ coment.id }}                  
+                      <ul>                       
                         <label>Usuario: </label> {{ coment.usuario }}
                         <p> {{ coment.comentario }}</p>
                         {%if request.user == coment.usuario %}
