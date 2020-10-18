@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^rechazardenuncia/(?P<pk>[0-9]+)/$', views.rechazardenuncia, name='rechazardenuncia'),
     url(r'^activarpublicacion/(?P<pk>[0-9]+)/$', views.activarpublicacion, name='activarpublicacion'),
     url(r'^versolicitudestotales/(?P<pk>[0-9]+)/$', views.versolicitudestotales, name='versolicitudestotales'),
-    url(r'^eliminarcomentario/(?P<pk>[0-9]+)/$', views.eliminarcomentario, name='eliminarcomentario'),
+    url(r'^eliminarcomentario/(?P<pk>[0-9]+)/$', views.eliminarcomentario, name='eliminarcomentario'),     
+    url(r'^verperfil/(?P<pk>[0-9]+)/$', views.verperfil, name='verperfil'),
     url('verdenuncias/', views.verdenuncias, name='verdenuncias'),
 ]

@@ -11,7 +11,7 @@
 				    <div class="panel panel-success">
 				    	<br>
 				    	<div class="form-group">
-				            <label>Solicitud de: </label> {{ solicitud.idUsuarioSolicitante }}
+				            <label>Solicitud de: </label> <a href="{% url 'verperfil' pk=solicitud.idUsuarioSolicitante.id %}">{{ solicitud.idUsuarioSolicitante }}</a>
 				         </div>		
 				         <div class="form-group">
 				            <label>Publicación: </label> <a href="{% url 'verpublicacion' pk=solicitud.idPublicacion.idPublicacion %}" >{{ solicitud.idPublicacion }}</a>

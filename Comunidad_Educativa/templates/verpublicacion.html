@@ -108,7 +108,7 @@
               <!-- ACÁ VA EL BOTÓN DE SOLICITAR CONTACTO -->
               {% if request.user != user %}
                   <div >
-                    <button class="btn btn-primary" name="action" value="SolicitarContacto">
+                    <button class="btn btn-success" name="action" value="SolicitarContacto">
                       <a style="color: white"  href="{% url 'solicitarcontacto' pk=publicacion.idPublicacion %}">Ponte en contacto!</a>
                     </button> 
                   </div>

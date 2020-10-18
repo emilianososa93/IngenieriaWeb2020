@@ -1,0 +1,48 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'static/css/editarusuario.css' %}">
+</head>
+
+<body>
+	{% if request.user.is_authenticated %}
+    {% endif %}
+    <div class="modal-dialog text-center">
+            	<h3>Datos del usuario solicitante</h3>
+            	<br>	
+            	<form >
+					{% for user1 in user%}
+							<div class="form-group">
+					          <label>Usuario:</label> {{user1.username|default_if_none:''}}
+					        </div>	
+				            <div class="form-group">
+					          <label>Nombre:</label> {{user1.first_name|default_if_none:''}}
+					        </div>
+					        <div class="form-group">
+					          <label>Apellido:</label> {{user1.last_name|default_if_none:''}}
+					        </div>
+					        <div class="form-group">
+					          <label>Correo:</label> {{user1.email|default_if_none:''}}
+					        </div>
+					{% endfor %}
+
+
+			        {% for perfil1 in perfil%}
+				            <div class="form-group">
+				            	<label>Localidad</label> {{perfil1.ciudad|default_if_none:''}}
+				            </div>
+				            <div class="form-group">
+					          <label>Telefono:</label> {{perfil1.telefonoNumero|default_if_none:''}}
+					        </div>
+					{% endfor %}
+
+			    </form>
+	</div>
+</body>
+
+{% endblock %}

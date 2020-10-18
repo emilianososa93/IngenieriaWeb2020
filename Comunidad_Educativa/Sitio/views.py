@@ -336,3 +336,13 @@ def nuevadenuncia(request, pk):
         denuncia_form = DenunciaForm()
     return render(request, 'denuncia.html', {'denuncia_form': denuncia_form})
 
+
+
+
+def verperfil(request,pk):
+	perfil_solicitante = pk
+	perfil = Perfil.objects.all().filter(usuario = perfil_solicitante)
+	user = User.objects.all().filter(id = perfil_solicitante)
+	return render(request, 'verperfil.html', {'perfil' : perfil,'user':user})
+
+
