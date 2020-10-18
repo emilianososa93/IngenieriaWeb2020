@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .filters import PublicacionFilter
 from .forms import PublicacionForm,DenunciaForm,ComentarioForm
-from .models import Publicacion, Denuncia,Comentario
+from .models import Publicacion, Denuncia, Comentario
 from .models import SolicitudContacto
 from Login.models import Perfil
 from django.contrib.auth.models import User
@@ -38,12 +38,12 @@ def nuevapublicacion(request):
 		publicacion = Publicacion(
 			tipoPublicacion = tipoPublicacion,
 			materia = materia,
-			tituloPublicacion = tituloPublicacion,			
+			tituloPublicacion = tituloPublicacion,
 			estadoPublicacion = estadoPublicacion,
 			precio = precio,
 			Contenido = Contenido,
-			idUsuarioPublicacion = idUsuarioPublicacion,		
-			ubicacionGeografica = ubicacionGeografica	
+			idUsuarioPublicacion = idUsuarioPublicacion,
+			ubicacionGeografica = ubicacionGeografica
         )
 		publicacion.save()
 
@@ -87,7 +87,7 @@ def verpublicacion(request,pk):
             usuario.append(Perfil.objects.all().last())
         solicitudexistente = []
         solicitudexistente = SolicitudContacto.objects.all().filter(idUsuarioSolicitante = request.user).filter(idUsuarioReceptor = _usuario)
-        
+
 
         denunciaexistente = []
         denunciaexistente = Denuncia.objects.all().filter(idUsuario = request.user).filter(idPublicacion = _idPublicacion)
@@ -142,7 +142,7 @@ def editarpublicacion(request,pk):
 def solicitarcontacto(request,pk):
     solicitante = User.objects.all().filter(id = request.user.id).first()
     #por ahora solo un perfil - chequear
-    
+
 
     _idPublicacion = pk
     publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
@@ -233,7 +233,7 @@ def eliminarsolicitud(request,pk):
 	email_subject   = 'Notificación de solicitud! :)'
 	email_body      = "Hola %s! El usuario %s que has contactado por la publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s ha rechazado tu solicitud. " % (solicitante.first_name, _usuarioPublicacion.username, publicacion)
 	send_mail(email_subject,email_body, 'comunidadeducativaseia@gmail.com',[_email])
-	
+
 	return HttpResponseRedirect('/verpublicacion/%s' %publicacion)
 
 def aceptarsolicitud(request,pk):
@@ -250,7 +250,7 @@ def aceptarsolicitud(request,pk):
 	email_subject   = 'Notificación de solicitud! :)'
 	email_body      = "Hola %s! El usuario %s que has contactado por la publicación: https://comunidadeducativa.herokuapp.com/verpublicacion/%s ha aceptado tu solicitud. En breve te estara contactando!" % (solicitante.first_name, _usuarioPublicacion.username, publicacion)
 	send_mail(email_subject,email_body, 'comunidadeducativaseia@gmail.com',[_email])
-	
+
 	return HttpResponseRedirect('/verpublicacion/%s' %publicacion)
 
 
@@ -292,17 +292,18 @@ def activarpublicacion(request,pk):
 
 
 def comentariopublicacion(request,pk):
-	id_publicacion = pk
-	estado = 'Publicado'
-	publicacion =Publicacion.objects.all().filter(idPublicacion = id_publicacion).first()
-	comentariocreado = Comentario()
-	comentariocreado.usuario = request.user
-	comentariocreado.comentario = 'Comentario111'
-	comentariocreado.idpublicacion = publicacion
-	comentariocreado.estadoComentario = 'Publicado'
-	comentariocreado.save()	
+    id_publicacion = pk
+    estado = 'Publicado'
+    form = PublicacionForm(request.POST)
+    publicacion =Publicacion.objects.all().filter(idPublicacion = id_publicacion).first()
+    comentariocreado = Comentario()
+    comentariocreado.usuario = request.user
+    comentariocreado.comentario = request.POST['contenidocomentario']
+    comentariocreado.idpublicacion = publicacion
+    comentariocreado.estadoComentario = 'Publicado'
+    comentariocreado.save()
 
-	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
+    return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
 
 def eliminarcomentario(request,pk):
@@ -335,4 +336,3 @@ def nuevadenuncia(request, pk):
     else:
         denuncia_form = DenunciaForm()
     return render(request, 'denuncia.html', {'denuncia_form': denuncia_form})
-
