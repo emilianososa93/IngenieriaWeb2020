@@ -148,12 +148,13 @@
               {% else %}
                 {% for coment in comentarios %}
                   {%if coment.estadoComentario == 'Publicado' %}
-                      <ul>                        
+                      <ul>      
+                        <label>Usuario: </label> {{ coment.id }}                  
                         <label>Usuario: </label> {{ coment.usuario }}
                         <p> {{ coment.comentario }}</p>
                         {%if request.user == coment.usuario %}
                           <button class="btn btn-primary" name="action" value="eliminarcomentario">
-                          <a style="color: white"  href="{% url 'eliminarcomentario' pk=publicacion.idPublicacion %}">Eliminar Comentario</a>
+                          <a style="color: white"  href="{% url 'eliminarcomentario' pk=coment.id  %}">Eliminar Comentario</a>
                           </button> 
                         {% endif %}
                         <hr size=”5px” width= “50%” align=”center” color=”red”/>

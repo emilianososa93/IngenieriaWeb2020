@@ -307,14 +307,13 @@ def comentariopublicacion(request,pk):
 
 
 def eliminarcomentario(request,pk):
-	_idPublicacion = pk
-	estado ='Eliminado'
-	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
-	comentario = Comentario.objects.all().filter(idpublicacion = publicacion).first()
-	comentario.estadoComentario = estado
+	_idComentario = pk
+	comentario = Comentario.objects.all().filter(id = _idComentario).first()
+	comentario.estadoComentario = 'Eliminado'
+	idPublicacion = comentario.idpublicacion.idPublicacion
 	comentario.save()
 
-	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
+	return HttpResponseRedirect('/verpublicacion/%s' %idPublicacion  )
 
 
 @login_required
