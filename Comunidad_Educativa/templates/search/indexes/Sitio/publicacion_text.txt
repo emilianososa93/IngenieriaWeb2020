@@ -3,4 +3,4 @@
 {{ object.FechaPublicacion }}
 {{ object.precio }}
 {{ object.materia }}
-{{ object.contenido }}
+{{ object.Contenido }}

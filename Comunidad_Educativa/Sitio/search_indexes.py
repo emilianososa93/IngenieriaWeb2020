@@ -6,7 +6,7 @@ class PublicacionIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     titulo = indexes.CharField(model_attr='tituloPublicacion')
     fecha = indexes.DateTimeField(model_attr='FechaPublicacion')
-    contenido = indexes.CharField(model_attr='Contenido')
+    Contenido = indexes.CharField(model_attr='Contenido')
     idPublicacion = indexes.CharField(model_attr='idPublicacion')
     precio = indexes.CharField(model_attr='precio')
 
