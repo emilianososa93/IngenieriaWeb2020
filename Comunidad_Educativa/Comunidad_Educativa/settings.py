@@ -148,7 +148,7 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = 'comunidadeducativaseia@gmail.com'
-EMAIL_HOST_PASSWORD = 'SEIA2020'
+EMAIL_HOST_PASSWORD = os.getenv('PASSWORD_GMAIL', '')
 EMAIL_PORT = 587
 
 
