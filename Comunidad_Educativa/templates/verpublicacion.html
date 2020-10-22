@@ -20,20 +20,24 @@
       <form class="form-horizontal"  method="GET" >
         <div class="col-md-5 main-section">
           {% if publicacion.estadoPublicacion == 'Eliminado' %}
-           <div class="alert alert-danger">
-                <strong>La publicacion ha sido eliminada!</strong> 
-          </div>
-          {% else %}
-            {% if publicacion.estadoPublicacion == 'Oculta' %}
+               <div class="alert alert-danger">
+                    <strong>La publicacion ha sido eliminada!</strong> 
+              </div>
+              {% if request.user.is_superuser%}
               <button class="btn btn-success">
-                     <a style="color: white"  href="{% url 'activarpublicacion'  pk=publicacion.idPublicacion %} ">Reactivar Publicacion</a>
-                  </button> 
-            {% endif %}
+                       <a style="color: white"  href="{% url 'activarpublicacion'  pk=publicacion.idPublicacion %} ">Reactivar Publicacion</a>
+                    </button> 
+              {% endif %}           
           {% endif %}
           {% if request.user == user %}
             {% if publicacion.estadoPublicacion == 'Publicado' %}
               <button class="btn btn-success">
                      <a style="color: white"  href="{% url 'versolicitudes'  pk=publicacion.idPublicacion %} ">Ver todas las solicitudes!</a>
+                  </button> 
+            {% endif %}
+             {% if publicacion.estadoPublicacion == 'Oculta'%}
+              <button class="btn btn-success">
+                     <a style="color: white"  href="{% url 'activarpublicacion'  pk=publicacion.idPublicacion %} ">Reactivar Publicacion</a>
                   </button> 
             {% endif %}
            {% else %}
@@ -42,9 +46,11 @@
                 <button class="btn btn-danger disabled">Ya denunciado</button>
               </div>
               {% else %}
-              <div>
-                <a class="btn btn-danger" href="{% url 'nuevadenuncia' pk=publicacion.idPublicacion %}" role="button">Denunciar Publicación</a>
-              </div>
+                 {% if publicacion.estadoPublicacion == 'Publicado' %}
+                  <div>
+                    <a class="btn btn-danger" href="{% url 'nuevadenuncia' pk=publicacion.idPublicacion %}" role="button">Denunciar Publicación</a>
+                  </div>
+                {% endif %}
               {% endif %} 
           {% endif %}
           <h3>Datos de la Publicación</h3>
