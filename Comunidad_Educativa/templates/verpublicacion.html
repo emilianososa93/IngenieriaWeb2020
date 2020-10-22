@@ -21,17 +21,21 @@
         <div class="col-md-5 main-section">
           {% if publicacion.estadoPublicacion == 'Eliminado' %}
            <div class="alert alert-danger">
-                <strong>¡Tu publicacion ya se encuenta Eliminada!</strong> 
-                  <button class="btn btn-success">
+                <strong>La publicacion ha sido eliminada!</strong> 
+          </div>
+          {% else %}
+            {% if publicacion.estadoPublicacion == 'Oculta' %}
+              <button class="btn btn-success">
                      <a style="color: white"  href="{% url 'activarpublicacion'  pk=publicacion.idPublicacion %} ">Reactivar Publicacion</a>
                   </button> 
-          </div>
+            {% endif %}
           {% endif %}
           {% if request.user == user %}
-            <button class="btn btn-success">
+            {% if publicacion.estadoPublicacion == 'Publicado' %}
+              <button class="btn btn-success">
                      <a style="color: white"  href="{% url 'versolicitudes'  pk=publicacion.idPublicacion %} ">Ver todas las solicitudes!</a>
                   </button> 
-
+            {% endif %}
            {% else %}
               {% if denunciado %}
               <div>
@@ -82,10 +86,11 @@
                  <a style="color: white" href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
                  </a>
                 </button>
-                <button class="btn btn-primary" name="action" value="EliminarPublicacion" id= "eliminar">
-                   <a style="color: white"  href="{% url 'eliminarpublicacion' pk=publicacion.idPublicacion %}">Eliminar Publicación</a>
-                </button>  
-                 
+                {% if publicacion.estadoPublicacion == 'Publicado' %}
+                  <button class="btn btn-primary" name="action" value="ocultarpublicacion" id= "eliminar">
+                     <a style="color: white"  href="{% url 'ocultarpublicacion' pk=publicacion.idPublicacion %}">Ocultar Publicación</a>
+                  </button>  
+                {% endif %}
             {% endif %}
            </div>          
           {% endif %}
@@ -136,7 +141,9 @@
                   <div class="form-group">
                      {{form1.contenidocomentario}}
                   </div>
-                  <button class="btn btn-primary" type = "submit" name="action" value="comentariopublicacion">Crear Comentario</button>
+                  {% if publicacion.estadoPublicacion == 'Publicado' %}
+                    <button class="btn btn-primary" type = "submit" name="action" value="comentariopublicacion">Crear Comentario</button>
+                  {% endif %}
                 </div>
           </div>
           <div id="divComentario" class="comments-wrapper mt-80">

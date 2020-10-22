@@ -17,6 +17,7 @@ class Publicacion(models.Model):
     estadoPublicacion = (
         ('Publicado','Publicado'),
         ('Borrador','Borrador'),
+        ('Oculta','Oculta'),
         ('Eliminado','Eliminado'),
         ('Denunciado','Denunciado')
     )

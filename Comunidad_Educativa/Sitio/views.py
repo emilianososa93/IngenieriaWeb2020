@@ -114,13 +114,11 @@ def editarpublicacion(request,pk):
 			form = PublicacionForm(request.POST)
 			tipoPublicacion = request.POST['tipoPublicacion']
 			materia = request.POST['materia']
-			estadoPublicacion = request.POST['estadoPublicacion']
 			tituloPublicacion = request.POST['tituloPublicacion']
 			precio = request.POST['precio']
 			contenido = request.POST['contenido']
 			publicacion.tipoPublicacion = tipoPublicacion
 			publicacion.materia = materia
-			publicacion.estadoPublicacion = estadoPublicacion
 			publicacion.tituloPublicacion = tituloPublicacion
 			publicacion.precio = precio
 			publicacion.Contenido = contenido
@@ -279,12 +277,24 @@ def eliminarpublicacion(request,pk):
 	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 
 
+def ocultarpublicacion(request,pk):
+	_idPublicacion = pk
+	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
+	fechamodificacion= timezone.now()
+	publicacion.FechaModificacionPublicacion = fechamodificacion
+	publicacion.estadoPublicacion = 'Oculta'
+
+	publicacion.save()
+
+	return HttpResponseRedirect('/verpublicacion/%s' %pk  )
+
+
 
 def activarpublicacion(request,pk):
 	_idPublicacion = pk
 	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
-	fechabaja= timezone.now()
-	publicacion.FechaModificacionPublicacion = fechabaja
+	fechamodificacion= timezone.now()
+	publicacion.FechaModificacionPublicacion = fechamodificacion
 	publicacion.estadoPublicacion = 'Publicado'
 	publicacion.save()
 
