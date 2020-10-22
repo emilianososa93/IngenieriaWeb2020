@@ -26,7 +26,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
                     {% if request.user.is_superuser%}
-                        <li><a href="/admin/auth/user" class="nav-link">Administrador</a></li>
+                        <li><a href="/admin/auth/user/" class="nav-link">Administrador</a></li>
                         <li><a href="/editarusuario/" class="nav-link">Tu cuenta: {{request.user.username}}</a></li>
                     <li><a href="/logout/" class="nav-link">Salir</a></li>
                     {% else %}

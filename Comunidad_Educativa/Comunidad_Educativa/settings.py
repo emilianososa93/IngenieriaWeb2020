@@ -146,6 +146,8 @@ LOGOUT_REDIRECT_URL = '/portada/'
 
 EMAIL_USE_TLS = True
 
+
+
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = 'comunidadeducativaseia@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('PASSWORD_GMAIL', '')
@@ -167,3 +169,8 @@ if os.environ.get('SEARCHBOX_URL'):
             'INDEX_NAME': 'documents',
         },
     }
+
+
+
+if not os.environ.get("EN_HEROKU", False):
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
