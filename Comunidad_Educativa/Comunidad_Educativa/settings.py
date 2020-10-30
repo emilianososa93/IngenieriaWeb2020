@@ -94,7 +94,7 @@ if os.environ.get("EN_DOCKER",False):
     DATABASES = {
         'default': {
             'ENGINE' : 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR,'..','data','db.sqlite3'),
+            'NAME': os.path.join(BASE_DIR,'..','..','data','db.sqlite3'),
         }
     }
     MEDIA_ROOT = os.path.join(BASE_DIR,'..','data','media')

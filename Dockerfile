@@ -11,6 +11,6 @@ COPY . /app_grupo7/
 
 ENV EN_DOCKER = True
 
-RUN mkdir /data
+RUN mkdir /app_grupo7/data
 
 CMD ["python", "Comunidad_Educativa/manage.py", "runserver", "0.0.0.0:8000"]
